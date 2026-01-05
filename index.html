@@ -13,32 +13,32 @@
 <body>
   <nav>
 
-    
-    <div class="nav-left">
-  <div class="toggle-icon">
-    <a href="#"><i id="toggle-bar" class="fa-solid fa-bars"></i></a>
-  </div>
-  <div class="logo">Plant 
-    </div>
 
-    </div>
-    <ul class="menu">
-      <li><a href="">Home</a></li>
-      <li><a href="">About</a></li>
-      <li><a href="">Contact</a></li>
-      <li><a href="#">Shopping carts<i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
-    </ul>
-
-    <div class="icon-bar">
-      <a class="active" href="#">Login</a>
-      <a class="active" href="#">Register</a>
-    </div>
-
-    
-    <div class="icon-cart">
-      <a href="#"><i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
-    </div>
-   
+      <div class="nav-left">
+        <div class="toggle-icon">
+          <a href="#"><i id="toggle-bar" class="fa-solid fa-bars"></i></a>
+        </div>
+        <div class="logo">Plant 
+        </div>
+        
+      </div>
+      <ul class="menu">
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Contact</a></li>
+        <li><a href="#">Shopping carts<i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
+      </ul>
+      
+      <div class="icon-bar">
+        <a class="active" href="#">Login</a>
+        <a class="active" href="#">Register</a>
+      </div>
+      
+      
+      <div class="icon-cart">
+        <a href="#"><i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
+      </div>
+      
   </nav>
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu">
@@ -54,7 +54,35 @@
       <li><a href="#"><i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i>Shopping Carts</a></li>
     </ul>
   </div>
-
+<main>
+  
+  <section class="search-area-bg">
+    <div class="container-search-area">
+      <h1>Are you looking for a new  plant ?</h1>
+      <p>within a few click,find a plants with right category plant down here </p>
+        <form class="submit-area">
+          <select name="categories" id="plant-categories">
+            <option value="" disabled selected>Category</option>
+            <option value="flowering">ไม้ดอก (Flowering Plants)</option>
+            <option value="foliage">ไม้ใบ (Foliage Plants)</option>
+            <option value="indoor">ไม้ร่ม / ไม้ในร่ม (Indoor Plants)</option>
+            <option value="sun_loving">ไม้แดด (Sun-loving Plants)</option>
+            <option value="aquatic">ไม้น้ำ (Aquatic Plants)</option>
+            <option value="climbing">ไม้เลื้อย (Climbing Plants)</option>
+            <option value="herbs">พืชสมุนไพร (Herbs)</option>
+            <option value="variegated">ไม้ด่าง (Variegated Plants)</option>
+            <option value="auspicious">ไม้มงคล (Auspicious Plants)</option>
+          </select>
+        
+          <div class="break-line"></div>
+        
+          <input type="search" class="search-box" name="search-box" size="30" placeholder="Enter Plant's name">
+          <button class="find-plant-btn" type="submit">Find Plant</button>
+        </form>
+    </div>
+  </section>
+        
+</main>
 
 </body>
 
