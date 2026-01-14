@@ -294,12 +294,14 @@ position: relative;
 }
 .btn-box-1,.btn-box-3{
   background-color: #fafafa;
-  box-shadow: 1px solid #000;
+  box-shadow: 2px 3px 5px rgb(83, 83, 83);
   border: none;
   padding: 1em 1.5em;
   border-radius: 30px;
   font-size: 1em;
   cursor: pointer;
+  color: #000;
+  font-weight: bold;
 }
 .button-overlay{
   transition: all 0.3s ease-in-out;
@@ -348,12 +350,12 @@ position: relative;
 }
 
 .product-card-area{
-  padding: 0.5em 1em;
   width: 100%;
+  padding: 0.5em 1em;
   max-width: 300px;
   height: 100%;
   background-color: #f4fff6;
-  
+    margin: 0 auto;
 }
 .product-card-img{
   text-align: center;
@@ -408,8 +410,28 @@ button{
   cursor: pointer;
   border-radius: 10px;
 }
+ .swiper {
+      width: 100%;
+      height: 100%;
+    }
 
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: transparent;
+      display: flex;
+      /* justify-content: flex-start; */
+      align-items: stretch;
+      ;
+    }
 
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+   
 /* mobile */
 @media only screen and (max-width:640px) {
 .menu{
@@ -490,6 +512,13 @@ form input[type="search"]{
 }
 .box-2,.box-3{
   height: 250px;
+}
+
+.cards-area{
+  grid-template-columns: 1fr 1fr;
+}
+.swiper {
+  height: 500px;
 }
 }
 
