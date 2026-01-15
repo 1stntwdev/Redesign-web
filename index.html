@@ -13,12 +13,14 @@
   href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
 />
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script src="assets/js/productSlide.js" defer ></script>
+<script src="assets/js/modalLogin.js" defer ></script>
+
+<link rel="stylesheet" href="assets/css/myLoginModal.css"> <!-- Login Form -->
 </head>
 
 <body>
   <nav>
-
-
       <div class="nav-left">
         <div class="toggle-icon">
           <a href="#"><i id="toggle-bar" class="fa-solid fa-bars"></i></a>
@@ -35,10 +37,9 @@
       </ul>
       
       <div class="icon-bar">
-        <a class="active" href="#">Login</a>
-        <a class="active" href="#">Register</a>
+        <a class="active" href="#" id="btn-login">Login</a>
+        <a class="active" href="#" id="btn-register">Register</a>
       </div>
-      
       
       <div class="icon-cart">
         <a href="#"><i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
@@ -48,8 +49,8 @@
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu">
     <ul class="menu-submit">
-      <li><a href="#login">Login</a></li>
-      <li><a href="#register">Register</a></li>
+      <li><a href="#" id="btn-login-mobile">Login</a></li>
+      <li><a href="#register" id="btn-register-mobile">Register</a></li>
     </ul>
 
     <ul class="menu-mobile">
@@ -223,40 +224,64 @@
             </div>
           </div>
         </div>
-        
-  
       </div>
       <div class="swiper-pagination"></div>
     </div>
   </section>
+        
   
+  <!-- POP UP LOGIN FORM -->
+   <!-- Focus Trapping - press "tap" nust inside form -->
+    <!-- Body Scroll Lock -->
+<dialog id="myRegisterModal">
+  <div class="modal-top">
+    <span id="closeBtnRegister" class="closeBtn">&#10006;</span>
+  </div>
+  <div class="modal-title">
+    <h2>Create an account</h2>
+    <p>Enter your email and password to securely access
+      your account and manage your services.</p>
+  </div>
+  <div class="modal-input">
+    <label for="name"></label><input name="name" type="text" placeholder="name">
+    <label for="email"></label><input name="email" type="text" placeholder="email">
+    <label for="pwd"></label><input name="pwd" type="password" placeholder="********">
+    <label for="confirmPwd"></label><input name="confirmPwd" type="password" placeholder="********">
+    <button type="submit" id="modal-submit">Create an account</button>
+  </div>
+</dialog>
+    
+   
+
+<dialog id="myLoginModal">
+  <div class="modal-top">
+    <span id="closeBtnLogin" class="closeBtn">&#10006;</span>
+  </div>
+  <div class="modal-title">
+    <h2>Login</h2>
+    <p>Enter your email and password to securely access
+      your account and manage your services.</p>
+  </div>
+  <div class="modal-input">
+    <label for="email"></label><input name="email" type="text" placeholder="email">
+    <label for="pwd"></label><input name="pwd" type="password" placeholder="********">
+    <div class="modal-rememberMe">
+      <div class="modal-checkbox">
+        <input type="checkbox" id="rememberMe" name="rememberMe"> <label for="rememberMe">Remember me</label>
+      </div>
+      <span>forgot password</span>
+
+    </div>
+    <button type="submit" id="modal-submit">Login</button>
+    <div class="modal-title-bottom">
+      <p>Don't have an account? </p> <a href="#" id="signUp">Sign Up here</a>
+    </div>
+  </div>
+</dialog>
+
+
 </main>
- <script>
-    var swiper = new Swiper(".mySwiper", {
-      loop: true,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-
-      breakpoints: {
-    // เมื่อหน้าจอกว้าง >= 480px
-   
-   
-    650: {
-      slidesPerView: 2,
-      spaceBetween: 10,
-    },
-     1024:{
-      slidesPerView: 4,
-      spaceBetween: 20,
-    },
-  }
-
-    });
-  </script>
+ 
 </body>
 
 </html>

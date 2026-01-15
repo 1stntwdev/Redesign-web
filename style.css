@@ -14,6 +14,7 @@
 body {
   font-family: Arial, sans-serif;
 }
+/* #region NAVBAR & MENU */
 nav{
   border-bottom: 1px solid #0000000d;
   display: flex;
@@ -122,7 +123,7 @@ nav{
     width: 100%;
   }
 }
-/* ---- NAV END ---- */
+/* #endregion */
 
 /* ---- SEARCH AREA START ---- */
 .search-area-bg{
@@ -133,7 +134,7 @@ nav{
   background-position: center;
   background-size: cover;
   display: flex;
-  align-items: center;     /* จัดกึ่งกลางแนวตั้ง (ต้องระบุความสูงของ section ด้วย) */
+  align-items: center;    
 }
 .container-search-area{
   padding: 0 0.5rem;
@@ -330,13 +331,11 @@ position: relative;
     opacity: 1;
 }
 
-/* card-container */
 .card-container{
   max-width: 1200px;
   width: 100%;
   height: 50vh;
   margin: 0 auto;
-  /* background-color: #e1e1e1; */
 }
 .cards-area{
   display: grid;
@@ -432,7 +431,7 @@ button{
       object-fit: cover;
     }
    
-/* mobile */
+/* #mobile size */
 @media only screen and (max-width:640px) {
 .menu{
   display: none;
@@ -521,4 +520,4 @@ form input[type="search"]{
   height: 500px;
 }
 }
-
+/* #end Mobile size */
