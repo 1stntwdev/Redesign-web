@@ -15,7 +15,10 @@ signUp.onclick = () =>{
   modalRegister.showModal();
 }
 registerBtn.onclick = () => modalRegister.showModal();
-loginBtn.onclick = () => modalLogin.showModal();
+loginBtn.onclick = () => {
+  modalLogin.showModal()
+ 
+};
 
 loginBtnMobile.onclick = () => {
   modalLogin.showModal();

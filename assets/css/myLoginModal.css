@@ -3,17 +3,17 @@
   border: none;
   padding: 1rem;
   border-radius: 5px;
-  display: inline-block;
+ 
 }
+
 #myRegisterModal{
   margin: 0 auto;
   border: none;
   padding: 1rem;
   border-radius: 5px;
-  display: inline-block;
+ 
 }
 .modal-top{
-  /* float: right; */
   display: flex;
   justify-content: flex-end;
   span{
