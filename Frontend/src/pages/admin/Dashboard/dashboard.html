@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/src/pages/admin/Dashboard/dashboard.css">
+</head>
+<body>
+ 
+  <div class="container">
+  <aside class="sidebar">
+    Sidebar Content
+  </aside>
+
+  <header class="header">
+    <h1>
+      Add Product
+    </h1>
+  </header>
+
+  <main class="main-content">
+    
+    <div class="sub-header">
+       > Add New Product / 
+       <button type="submit" form="form-grid">Add Product</button>
+    </div>
+
+    <form class="form-grid" id="form-grid" action="/upload" method="post" enctype="multipart/form-data">
+      <section class="naming-details">
+        <h3>General Information</h3>
+      <label for="name" name="name">Product Name<input type="text"></label>
+      <label for="description" name="description">Description<input type="text"></label>
+      </section>
+      <section class="pricing-details">
+        <h3>Price</h3>
+      <label for="price">Base Price<input type="text" name="price"></label>
+      </section>
+      <section class="media-details">
+        <h3>Product Media</h3>
+        <div class="img-details">
+          <input type="file" 
+          id="product_pic"
+          name="photo"
+          accept=".jpg, .jpeg, .png">
+        </div>
+      </section>
+      <section class="category-details"><h3>Category</h3>
+        <select name="category" id="category">
+          <option value="Category" disabled selected>Category</option>
+          <option value="Indoor Plants">Indoor Plants</option>
+          <option value="Partial Shade">Partial Shade</option>
+          <option value="Sun-loving plants">Sun-loving plants</option>
+        </select>
+      </section>
+    </form>
+    
+  </main>
+</div>
+</body>
+</html>
