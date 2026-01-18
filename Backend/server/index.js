@@ -24,10 +24,9 @@ app.post('/upload', upload.single('photo'), (req, res) => {
   res.send(req.file)
 })
 require('dotenv').config();
-const {MYSQL_HOST,MYSQL_USER,MYSQL_PWD,MYSQL_DB,MY_PORT} = process.env
+const {MYSQL_HOST,MYSQL_USER,MYSQL_PWD,MYSQL_DB} = process.env
 // insert img ------------------------
 app.get('/testdb', (req, res) => {
-  console.log(MYSQL_HOST,MYSQL_USER,MYSQL_PWD,MYSQL_DB)
   mysql.createConnection({
     host:MYSQL_HOST,
     user:MYSQL_USER,
