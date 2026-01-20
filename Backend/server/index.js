@@ -38,8 +38,24 @@ const db = {
         return rows[0];
     },
     insert: async (data) => {
-        const [result] = await conn.query('INSERT INTO product_plant SET ?', data);
-        return result;
+
+        const query = `
+        INSERT INTO product_plant (name, description, price, high, wide, img, light_type_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `;
+        const values = [
+        data.name,
+        data.description,
+        data.price,
+        data.high,
+        data.wide,
+        data.img,
+        data.light_type_id
+        ]
+        // const [result] = await conn.query('INSERT INTO product_plant SET ?', data);
+        // return result;
+        const [result] = await conn.query(query, values);
+        return {id: result.insertId, ...data };
     },
     update: async (id, data) => {
         const [result] = await conn.query('UPDATE product_plant SET ? WHERE plant_id = ?', [data, id]);
@@ -57,8 +73,40 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/Dashboard/dashboard.html'));
 });
 
-app.post('/upload', upload.single('photo'), (req, res) => {
-    res.send(req.file);
+app.post('/upload', upload.single('photo'),async (req, res,next) => {
+    // res.send(req.file);
+    try {
+         console.log('req.body:', req.body);
+        console.log('req.file:', req.file);
+        // ตรวจสอบว่ามีไฟล์หรือไม่
+        if (!req.file) {
+            return res.status(400).json({ error: 'Please upload a photo' });
+        }
+ if (!req.body.name) {
+            return res.status(400).json({ error: 'Product name is required' });
+        }
+        // เตรียมข้อมูลตามโครงสร้าง database ของคุณ
+        const productData = {
+            name: req.body.name,
+            description: req.body.description,
+            price: parseFloat(req.body.price),
+            high: parseFloat(req.body.high),
+            wide: parseFloat(req.body.wide) ,
+            img: req.file.filename,  // เก็บแค่ชื่อไฟล์
+            light_type_id: req.body.category
+        };
+
+        // บันทึกลง database
+        const result = await db.insert(productData);
+        
+        res.status(201).json({
+            message: 'Product added successfully',
+            product: result
+        });
+
+    } catch (error) {
+        next(error);
+    }
 });
 
 app.get('/api/fetchAll', async (req, res, next) => {

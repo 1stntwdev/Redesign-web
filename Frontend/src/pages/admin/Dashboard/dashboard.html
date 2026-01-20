@@ -25,16 +25,25 @@
        > Add New Product / 
        <button type="submit" form="form-grid">Add Product</button>
     </div>
+<!-- data.description,
+        data.price,
+        data.high,
+        data.wide,
+        data.img,
+        data.light_type_id -->
+
 
     <form class="form-grid" id="form-grid" action="/upload" method="post" enctype="multipart/form-data">
       <section class="naming-details">
         <h3>General Information</h3>
-      <label for="name" name="name">Product Name<input type="text"></label>
-      <label for="description" name="description">Description<input type="text"></label>
+      <label for="name" >Product Name<input type="text" name="name" id="name"></label>
+      <label for="description" >Description<input type="text" id="description" name="description"></label>
+      <label for="high">high size<input type="text" name="high" id="high"></label>
+      <label for="high">high size<input type="text" name="wide" id="wide"></label>
       </section>
       <section class="pricing-details">
         <h3>Price</h3>
-      <label for="price">Base Price<input type="text" name="price"></label>
+      <label for="price">Base Price<input type="text" id="price" name="price"></label>
       </section>
       <section class="media-details">
         <h3>Product Media</h3>
