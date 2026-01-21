@@ -21,10 +21,21 @@ const upload = multer({ storage });
 
 // --- Database Connection ---
 let conn = null;
-const initMySQL = async () => {
-    conn = await mysql.createConnection({
-        host: MYSQL_HOST, user: MYSQL_USER, password: MYSQL_PWD, database: MYSQL_DB,
-    });
+const initMySQL = async (next) => {
+    try {
+        conn = await mysql.createConnection({
+            host: MYSQL_HOST,
+            user: MYSQL_USER,
+            password: MYSQL_PWD,
+            database: MYSQL_DB,
+        });
+    } catch (error) {
+        if (error.code === 'ECONNREFUSED') console.log(` >>> Can't connect to database Please try turn on data base server. <<< `);
+        else {
+            console.error('something wrong:', error.message);
+            next(error);
+        }
+    }
 };
 
 // --- Database Logic (Helper Functions) ---
@@ -78,21 +89,21 @@ app.post('/upload', upload.single('photo'),async (req, res,next) => {
     try {
          console.log('req.body:', req.body);
         console.log('req.file:', req.file);
-        // ตรวจสอบว่ามีไฟล์หรือไม่
+
         if (!req.file) {
             return res.status(400).json({ error: 'Please upload a photo' });
         }
  if (!req.body.name) {
             return res.status(400).json({ error: 'Product name is required' });
         }
-        // เตรียมข้อมูลตามโครงสร้าง database ของคุณ
+       
         const productData = {
             name: req.body.name,
             description: req.body.description,
             price: parseFloat(req.body.price),
             high: parseFloat(req.body.high),
             wide: parseFloat(req.body.wide) ,
-            img: req.file.filename,  // เก็บแค่ชื่อไฟล์
+            img: req.file.filename,  
             light_type_id: req.body.category
         };
 
@@ -103,7 +114,6 @@ app.post('/upload', upload.single('photo'),async (req, res,next) => {
             message: 'Product added successfully',
             product: result
         });
-
     } catch (error) {
         next(error);
     }
