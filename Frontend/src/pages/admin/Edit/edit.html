@@ -1,0 +1,57 @@
+ <div class="sub-header">
+       <h1>Insert New Product</h1> 
+       <button type="submit" form="form-grid">Update Product</button>
+    </div>
+
+    <form class="form-grid" id="form-grid" onsubmit="updateProduct(event)" method="post" enctype="multipart/form-data">
+      <section class="naming-details">
+        <h3>Insert General Information</h3>
+      <label for="name" >Product Name<input type="text" name="name" id="name"></label>
+      <label for="description" >Description<input type="text" id="description" name="description"></label>
+      <label for="high">high size<input type="text" name="high" id="high"></label>
+      <label for="high">high size<input type="text" name="wide" id="wide"></label>
+      </section>
+      <section class="pricing-details">
+        <h3>Price</h3>
+      <label for="price">Base Price<input type="text" id="price" name="price"></label>
+      </section>
+     
+
+      <section class="media-details">
+    <h3>Product Media</h3>
+    
+    <!-- แสดงรูปภาพปัจจุบัน -->
+    <div class="current-image">
+        <label>รูปภาพปัจจุบัน:</label>
+        <img id="current-image" src="/uploads/${product.img}" 
+             alt="Current product" 
+             style="max-width: 200px; display: block; margin: 10px 0;">
+        <p style="color: #666; font-size: 14px;">
+            ไฟล์: ${product.img}
+        </p>
+    </div>
+    
+    <!-- ให้เลือกไฟล์ใหม่ถ้าต้องการเปลี่ยน -->
+    <div class="img-details">
+        <label for="product_pic">
+            <strong>เปลี่ยนรูปภาพ (ถ้าต้องการ)</strong>
+            <br>
+            <small style="color: #666;">หากไม่เลือกไฟล์ใหม่ จะใช้รูปเดิม</small>
+        </label>
+        <input type="file" 
+               id="product_pic"
+               name="photo"
+               accept=".jpg, .jpeg, .png, .webp">
+    </div>
+</section>
+
+
+      <section class="category-details"><h3>Category</h3>
+        <select name="category" id="category">
+          <option value="Category" disabled selected>Category</option>
+          <option value="Indoor Plants">Indoor Plants</option>
+          <option value="Partial Shade">Partial Shade</option>
+          <option value="Sun-loving plants">Sun-loving plants</option>
+        </select>
+      </section>
+    </form>

@@ -1,0 +1,42 @@
+<div class="header">
+       <h1>
+      Manage Product
+    </h1>
+    </div>
+    <div class="sub-header">
+       > Add New Product / 
+       <button type="submit" form="form-grid">Add Product</button>
+    </div>
+
+
+
+    <form class="form-grid" id="form-grid" action="/upload" method="post" enctype="multipart/form-data">
+      <section class="naming-details">
+        <h3>General Information</h3>
+      <label for="name" >Product Name<input type="text" name="name" id="name"></label>
+      <label for="description" >Description<input type="text" id="description" name="description"></label>
+      <label for="high">high size<input type="text" name="high" id="high"></label>
+      <label for="high">high size<input type="text" name="wide" id="wide"></label>
+      </section>
+      <section class="pricing-details">
+        <h3>Price</h3>
+      <label for="price">Base Price<input type="text" id="price" name="price"></label>
+      </section>
+      <section class="media-details">
+        <h3>Product Media</h3>
+        <div class="img-details">
+          <input type="file" 
+          id="product_pic"
+          name="photo"
+          accept=".jpg, .jpeg, .png, .webp">
+        </div>
+      </section>
+      <section class="category-details"><h3>Category</h3>
+        <select name="category" id="category">
+          <option value="Category" disabled selected>Category</option>
+          <option value="Indoor Plants">Indoor Plants</option>
+          <option value="Partial Shade">Partial Shade</option>
+          <option value="Sun-loving plants">Sun-loving plants</option>
+        </select>
+      </section>
+    </form>

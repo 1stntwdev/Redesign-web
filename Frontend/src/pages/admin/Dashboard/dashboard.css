@@ -29,6 +29,7 @@
   background-color: #f9f9f9;
   padding: 20px;
 }
+
 .sub-header {
   display: flex;
   justify-content: space-between; 
@@ -80,8 +81,8 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  
-}
+  }
+
 @media only screen and (max-width:850px) {
   .form-grid{
     grid-template-columns: 1fr;

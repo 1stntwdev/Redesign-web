@@ -8,20 +8,21 @@ const path = require('path');
 require('dotenv').config();
 
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
-
 // --- Config & Middleware ---
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../../Frontend')));
-
+app.use('/assets', express.static(path.join(__dirname, '../../assets')));
+app.use('/uploads',express.static(path.join(__dirname,'../server/uploads')));
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, './uploads'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
 const upload = multer({ storage });
 
+
 // --- Database Connection ---
 let conn = null;
-const initMySQL = async (next) => {
+const initMySQL = async () => {
     try {
         conn = await mysql.createConnection({
             host: MYSQL_HOST,
@@ -33,7 +34,6 @@ const initMySQL = async (next) => {
         if (error.code === 'ECONNREFUSED') console.log(` >>> Can't connect to database Please try turn on data base server. <<< `);
         else {
             console.error('something wrong:', error.message);
-            next(error);
         }
     }
 };
@@ -78,10 +78,68 @@ const db = {
     }
 };
 
-// --- Routes ---
+// PUT /api/update/:id - สำหรับแก้ไขสินค้า
+app.put('/api/update/:id', upload.single('photo'), async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        
+        console.log('=== Update Product ===');
+        console.log('ID:', id);
+        console.log('Body:', req.body);
+        console.log('File:', req.file);
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/Dashboard/dashboard.html'));
+        // Validate
+        if (!req.body.name) {
+            return res.status(400).json({ error: 'Product name is required' });
+        }
+
+        // เตรียมข้อมูลที่จะ update
+        const productData = {
+            name: req.body.name,
+            description: req.body.description || '',
+            price: parseFloat(req.body.price) || 0,
+            high: parseFloat(req.body.high) || 0,
+            wide: parseFloat(req.body.wide) || 0,
+            light_type_id: req.body.category
+        };
+
+        // ✅ จัดการรูปภาพ
+        if (req.file) {
+            // มีรูปใหม่ → ใช้รูปใหม่
+            productData.img = req.file.filename;
+            
+            // ลบรูปเก่า (optional แต่แนะนำ)
+            if (req.body.current_img && req.body.current_img !== 'null') {
+                const fs = require('fs');
+                const oldPath = `./uploads/${req.body.current_img}`;
+                if (fs.existsSync(oldPath)) {
+                    fs.unlinkSync(oldPath);
+                    console.log('Deleted old image:', req.body.current_img);
+                }
+            }
+        } else {
+            // ไม่มีรูปใหม่ → ใช้รูปเดิม
+            productData.img = req.body.current_img;
+        }
+
+        console.log('Product data to update:', productData);
+
+        // Update database
+        const result = await db.update(id, productData);
+        
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+        
+        res.json({
+            message: 'Product updated successfully',
+            product: { id, ...productData }
+        });
+
+    } catch (error) {
+        console.error('Update error:', error);
+        next(error);
+    }
 });
 
 app.post('/upload', upload.single('photo'),async (req, res,next) => {
@@ -162,7 +220,16 @@ app.delete('/api/delete/:id', async (req, res, next) => {
         res.json({ message: 'Delete successfully' });
     } catch (error) { next(error); }
 });
-
+// --- Routes ---
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/Dashboard/dashboard.html'));
+}); // -- refresh แล้วกลับหน้าเดิม
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/Dashboard/dashboard.html'));
+});
+app.get('/manageProduct',(req,res)=>{
+    res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/ManageProduct/manage.html'));
+})
 // --- 1. Global Error Handler (ส่วนที่ใช้ next ส่งมา) ---
 app.use((err, req, res, next) => {
     console.error("LOG ERROR:", err.message);
@@ -174,5 +241,8 @@ app.use((err, req, res, next) => {
 
 app.listen(port, async () => {
     await initMySQL();
+    if (!conn) {
+        console.error("Warning: Server started without database connection.");
+    }
     console.log(`Server listening on port ${port}`);
 });

@@ -1,0 +1,15 @@
+table{
+  background-color: #fff;
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 5px;
+}
+td,th{
+   border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+tr:hover{
+  cursor: pointer;
+  background-color: #f2faff;
+}

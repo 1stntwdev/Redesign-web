@@ -5,63 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="/src/pages/admin/Dashboard/dashboard.css">
+  <!-- <link rel="stylesheet" href="dashboard.css"> -->
+  <link rel="stylesheet" href="/assets/css/dashboard-sidebar.css">
+  <script type="module" src="/assets/js/manageProduct.js" defer></script>
+  <!-- <script src="/assets/js/fetchProduct.js" defer></script> -->
 </head>
 <body>
  
   <div class="container">
   <aside class="sidebar">
-    <div class="product-all">Products</div>
-    <div class="insert-product">Insert Product</div>
-    <div class="Edit-product">Edit</div>
+    <ul class="menu-sidebar">
+      <li>
+        <a href="/" onclick="route(event)">Home</a>
+      </li>
+        <li>
+          <a href="/fetch" onclick="route(event)">Product Table</a>
+        </li>
+        <li>
+          <a href="/manageProduct" onclick="route(event)">Insert Product</a>
+        </li>
+        <li>
+          <a href="/edit" onclick="route(event)">Edit</a>
+        </li>
+          
+
+      </ul>
   </aside>
 
-  <header class="header">
-    <h1>
-      Add Product
-    </h1>
-  </header>
 
-  <main class="main-content">
-    
-    <div class="sub-header">
-       > Add New Product / 
-       <button type="submit" form="form-grid">Add Product</button>
-    </div>
-
-
-
-    <form class="form-grid" id="form-grid" action="/upload" method="post" enctype="multipart/form-data">
-      <section class="naming-details">
-        <h3>General Information</h3>
-      <label for="name" >Product Name<input type="text" name="name" id="name"></label>
-      <label for="description" >Description<input type="text" id="description" name="description"></label>
-      <label for="high">high size<input type="text" name="high" id="high"></label>
-      <label for="high">high size<input type="text" name="wide" id="wide"></label>
-      </section>
-      <section class="pricing-details">
-        <h3>Price</h3>
-      <label for="price">Base Price<input type="text" id="price" name="price"></label>
-      </section>
-      <section class="media-details">
-        <h3>Product Media</h3>
-        <div class="img-details">
-          <input type="file" 
-          id="product_pic"
-          name="photo"
-          accept=".jpg, .jpeg, .png, .webp">
-        </div>
-      </section>
-      <section class="category-details"><h3>Category</h3>
-        <select name="category" id="category">
-          <option value="Category" disabled selected>Category</option>
-          <option value="Indoor Plants">Indoor Plants</option>
-          <option value="Partial Shade">Partial Shade</option>
-          <option value="Sun-loving plants">Sun-loving plants</option>
-        </select>
-      </section>
-    </form>
-    
+  <main class="main-content" id="main-content">
   </main>
+
+   
+    
 </div>
 </body>
 </html>
