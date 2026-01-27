@@ -19,19 +19,40 @@ app.post('/register', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
-    const hashPassword = bcrypt.hashSync(password, 5);
     try {
+        // เช็ค username มีใน database รึยังค่อย insert
+        const isUsernameExist = await checkUsername(username);
+        if(isUsernameExist){
+            return res.json({
+                success:false,
+                message:"This username already taken",
+            })
+        }
+        const hashPassword = bcrypt.hashSync(password, 5);
         const [result] = await conn.query(`INSERT INTO user (username,password,email) VALUES (?, ? ,?)`, [username, hashPassword, email]);
-        res.json({
-            "result": result,
+        
+        res.status(201).json({
+            success: true,
             "message": "Register success"
         });
     } catch (error) {
-        console.log(error);
+        console.log(`error`,error);
         res.status(500).json({ error: 'Register fail' });
     }
 });
-
+async function checkUsername(username){
+// query username
+    const [result] = await conn.query(`SELECT username FROM user WHERE username = ?`,[username]);
+// check condition have or not
+    if(result.length > 0){
+    console.log(`This username already use please change your username`);
+    return true;
+}
+else{
+    console.log(`Username "${username}" is available`);
+    return false;
+}
+}
 async function checkUser(username, password) {
     const [response] = await conn.query(`SELECT * FROM user WHERE username = ?`, [username]);
     const match = await bcrypt.compare(password, response[0].password);
@@ -69,8 +90,6 @@ app.post('/login', async (req, res) => {
                 message: "login failed"
             });
         }
-             
-    
     catch (error) {
         res.status(500).json({
             success: false,
