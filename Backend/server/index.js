@@ -13,6 +13,55 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../../Frontend')));
 app.use('/assets', express.static(path.join(__dirname, '../../assets')));
 app.use('/uploads',express.static(path.join(__dirname,'../server/uploads')));
+
+const mockData = [{
+    username:"admin",
+    password:"admin"
+},{
+    username:"guest",
+    password:"guest"
+},
+];
+app.post('/register',async (req,res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
+ 
+    try {
+     const [result] = await conn.query(`INSERT INTO user (username,password,email) VALUES (?, ? ,?)`,[username,password,email]);
+     res.json({
+        "result":result,
+        "message":"Register success"
+    });
+    } catch (error) { 
+        console.log(error); 
+        res.status(500).json({error : 'Register fail'});
+    }
+    });
+     
+    
+app.post('/login',(req,res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const mockUsername = "admin";
+    const mockPassword = "admin";
+
+    if(username === mockUsername && password === mockPassword){
+        res.json({
+            success:true,
+            message:"login sucess",
+            token:"encrypted token here"
+        });
+    }else{
+        res.json({
+            success:false,
+            message:"login failed"
+        });
+    }
+});
+    
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, './uploads'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
@@ -244,5 +293,5 @@ app.listen(port, async () => {
     if (!conn) {
         console.error("Warning: Server started without database connection.");
     }
-    console.log(`Server listening on port ${port}`);
+    console.log(`Server listening on port http://localhost:${port}`);
 });
