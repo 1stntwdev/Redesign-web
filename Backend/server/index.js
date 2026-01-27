@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
@@ -12,55 +13,73 @@ const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../../Frontend')));
 app.use('/assets', express.static(path.join(__dirname, '../../assets')));
-app.use('/uploads',express.static(path.join(__dirname,'../server/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../server/uploads')));
 
-const mockData = [{
-    username:"admin",
-    password:"admin"
-},{
-    username:"guest",
-    password:"guest"
-},
-];
-app.post('/register',async (req,res)=>{
+app.post('/register', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
- 
+    const hashPassword = bcrypt.hashSync(password, 5);
     try {
-     const [result] = await conn.query(`INSERT INTO user (username,password,email) VALUES (?, ? ,?)`,[username,password,email]);
-     res.json({
-        "result":result,
-        "message":"Register success"
-    });
-    } catch (error) { 
-        console.log(error); 
-        res.status(500).json({error : 'Register fail'});
+        const [result] = await conn.query(`INSERT INTO user (username,password,email) VALUES (?, ? ,?)`, [username, hashPassword, email]);
+        res.json({
+            "result": result,
+            "message": "Register success"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Register fail' });
     }
-    });
-     
-    
-app.post('/login',(req,res)=>{
+});
+
+async function checkUser(username, password) {
+    const [response] = await conn.query(`SELECT * FROM user WHERE username = ?`, [username]);
+    const match = await bcrypt.compare(password, response[0].password);
+
+    try {
+        if  (match) {
+            console.log(`Login Success`);
+            return response[0];
+        } else {
+            console.log(`Login faile: Wrong password`)
+           return false
+        }
+    } catch (error) {
+        console.erro(error)
+        throw error;
+    }
+
+}
+app.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    const mockUsername = "admin";
-    const mockPassword = "admin";
-
-    if(username === mockUsername && password === mockPassword){
-        res.json({
-            success:true,
-            message:"login sucess",
-            token:"encrypted token here"
-        });
-    }else{
-        res.json({
-            success:false,
-            message:"login failed"
-        });
+    try {
+        const user = await checkUser(username, password);
+        console.log('User result:', user); 
+        if (user!== null && user!== false) {
+            return res.json({
+                success: true,
+                message: "login sucess",
+                token: "encrypted token here",
+            });
+        } 
+        return res.status(401).json({ //  สำหรับ unauthorized
+                success: false, // แก้จาก fail เป็น false
+                message: "login failed"
+            });
+        }
+             
+    
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "login failed"
+        })
+        console.error(error)
     }
 });
-    
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, './uploads'),
@@ -104,18 +123,18 @@ const db = {
             VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
-        data.name,
-        data.description,
-        data.price,
-        data.high,
-        data.wide,
-        data.img,
-        data.light_type_id
+            data.name,
+            data.description,
+            data.price,
+            data.high,
+            data.wide,
+            data.img,
+            data.light_type_id
         ]
         // const [result] = await conn.query('INSERT INTO product_plant SET ?', data);
         // return result;
         const [result] = await conn.query(query, values);
-        return {id: result.insertId, ...data };
+        return { id: result.insertId, ...data };
     },
     update: async (id, data) => {
         const [result] = await conn.query('UPDATE product_plant SET ? WHERE plant_id = ?', [data, id]);
@@ -131,7 +150,7 @@ const db = {
 app.put('/api/update/:id', upload.single('photo'), async (req, res, next) => {
     try {
         const id = req.params.id;
-        
+
         console.log('=== Update Product ===');
         console.log('ID:', id);
         console.log('Body:', req.body);
@@ -156,7 +175,7 @@ app.put('/api/update/:id', upload.single('photo'), async (req, res, next) => {
         if (req.file) {
             // มีรูปใหม่ → ใช้รูปใหม่
             productData.img = req.file.filename;
-            
+
             // ลบรูปเก่า (optional แต่แนะนำ)
             if (req.body.current_img && req.body.current_img !== 'null') {
                 const fs = require('fs');
@@ -175,11 +194,11 @@ app.put('/api/update/:id', upload.single('photo'), async (req, res, next) => {
 
         // Update database
         const result = await db.update(id, productData);
-        
+
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: "Product not found" });
         }
-        
+
         res.json({
             message: 'Product updated successfully',
             product: { id, ...productData }
@@ -191,32 +210,32 @@ app.put('/api/update/:id', upload.single('photo'), async (req, res, next) => {
     }
 });
 
-app.post('/upload', upload.single('photo'),async (req, res,next) => {
+app.post('/upload', upload.single('photo'), async (req, res, next) => {
     // res.send(req.file);
     try {
-         console.log('req.body:', req.body);
+        console.log('req.body:', req.body);
         console.log('req.file:', req.file);
 
         if (!req.file) {
             return res.status(400).json({ error: 'Please upload a photo' });
         }
- if (!req.body.name) {
+        if (!req.body.name) {
             return res.status(400).json({ error: 'Product name is required' });
         }
-       
+
         const productData = {
             name: req.body.name,
             description: req.body.description,
             price: parseFloat(req.body.price),
             high: parseFloat(req.body.high),
-            wide: parseFloat(req.body.wide) ,
-            img: req.file.filename,  
+            wide: parseFloat(req.body.wide),
+            img: req.file.filename,
             light_type_id: req.body.category
         };
 
         // บันทึกลง database
         const result = await db.insert(productData);
-        
+
         res.status(201).json({
             message: 'Product added successfully',
             product: result
@@ -276,7 +295,7 @@ app.get(/.*/, (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/Dashboard/dashboard.html'));
 });
-app.get('/manageProduct',(req,res)=>{
+app.get('/manageProduct', (req, res) => {
     res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/ManageProduct/manage.html'));
 })
 // --- 1. Global Error Handler (ส่วนที่ใช้ next ส่งมา) ---
