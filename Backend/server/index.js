@@ -7,8 +7,12 @@ const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-
+const jwt = require('jsonwebtoken');
+const secret = 'lovedev';
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
+const cors = require('cors');
+
+app.use(cors()); 
 // --- Config & Middleware ---
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../../Frontend')));
@@ -77,16 +81,17 @@ app.post('/login', async (req, res) => {
 
     try {
         const user = await checkMatching(username, password);
-        console.log('User result:', user); 
+        // console.log('User result:', user); 
+        const token =  jwt.sign({username,role:'user'},secret,{expiresIn:'1h'});
         if (user!== null && user!== false) {
             return res.json({
                 success: true,
                 message: "login sucess",
-                token: "encrypted token here",
+                token: token,
             });
         } 
-        return res.status(401).json({ //  สำหรับ unauthorized
-                success: false, // แก้จาก fail เป็น false
+        return res.status(401).json({ //  401 : unauthorized
+                success: false, 
                 message: "login failed"
             });
         }

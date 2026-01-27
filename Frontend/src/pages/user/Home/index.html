@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="/assets/css/home.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-  <script src="/assets/js/toggleHome.js" defer></script>
-  <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
-/>
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
+<link rel="stylesheet" href="index.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+<script src="/assets/js/toggleHome.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 <script src="/assets/js/productSlide.js" defer ></script>
-<script src="/assets/js/modalLogin.js" defer ></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
-<link rel="stylesheet" href="/assets/css/myLoginModal.css"> <!-- Login Form -->
+<script src="/assets/js/logout.js" defer></script>
+<!-- logout -->
 </head>
-
 <body>
-  <nav>
+   <nav>
       <div class="nav-left">
         <div class="toggle-icon">
           <a href="#"><i id="toggle-bar" class="fa-solid fa-bars"></i></a>
@@ -39,8 +32,8 @@
       </ul>
       
       <div class="icon-bar">
-        <a class="active" href="#" id="btn-login">Login</a>
-        <a class="active" href="#" id="btn-register">Register</a>
+        <a class="active" href="#" id="btn-login" onclick="getToken()">Profile</a>
+        <a class="active" href="#" id="btn-register" onclick="logout()">Logout</a>
       </div>
       
       <div class="icon-cart">
@@ -51,8 +44,8 @@
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu">
     <ul class="menu-submit">
-      <li><a href="#" id="btn-login-mobile">Login</a></li>
-      <li><a href="#register" id="btn-register-mobile">Register</a></li>
+      <li><a href="#" id="btn-login-mobile">Profile</a></li>
+      <li><a href="#register" id="btn-register-mobile">Logout</a></li>
     </ul>
 
     <ul class="menu-mobile">
@@ -285,5 +278,17 @@
 </main>
  <script src="/assets/js/home.js" ></script>
 </body>
+<script>
+  const token = localStorage.getItem('token');
+  console.log('Token:', token);
 
+
+
+// ใช้ token เรียก API
+axios.get('http://127.0.0.1:5500/Frontend/src/pages/user/Home/index.html', {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+});
+</script>
 </html>
