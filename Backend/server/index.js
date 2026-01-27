@@ -53,7 +53,7 @@ else{
     return false;
 }
 }
-async function checkUser(username, password) {
+async function checkMatching(username, password) {
     const [response] = await conn.query(`SELECT * FROM user WHERE username = ?`, [username]);
     const match = await bcrypt.compare(password, response[0].password);
 
@@ -76,7 +76,7 @@ app.post('/login', async (req, res) => {
     const password = req.body.password;
 
     try {
-        const user = await checkUser(username, password);
+        const user = await checkMatching(username, password);
         console.log('User result:', user); 
         if (user!== null && user!== false) {
             return res.json({
