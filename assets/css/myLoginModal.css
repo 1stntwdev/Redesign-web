@@ -1,13 +1,16 @@
 #myLoginModal{
-  margin: 0 auto;
+  
+  margin: 13rem auto;
   border: none;
   padding: 1rem;
   border-radius: 5px;
  
 }
-
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 #myRegisterModal{
-  margin: 0 auto;
+  margin: 13rem auto;
   border: none;
   padding: 1rem;
   border-radius: 5px;
@@ -24,6 +27,16 @@
 .modal-title{
   text-align: center;
 }
+.email-invalid{
+  display: none;
+  color: red;
+  font-size: 0.7rem;
+}
+.pwd-invalid{
+  display: none;
+  color: red;
+  font-size: 0.7rem;
+}
 .modal-input{
   display: flex;
   flex-direction: column;
@@ -37,12 +50,18 @@
     border-color: #02b754;
   }
 }
+#modal-submit:hover{
+  background-color: #007a53;
+}
 .modal-rememberMe{
   display: flex;
   justify-content: space-between;
   input ,label,span{
     cursor: pointer;
   }
+}
+.modal-title h2{
+  margin-bottom: 0.5rem;
 }
 .modal-title-bottom{
   display: flex;

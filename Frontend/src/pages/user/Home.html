@@ -244,12 +244,17 @@
     <p>Enter your email and password to securely access
       your account and manage your services.</p>
   </div>
-  <div class="modal-input">
-    <label for="name"></label><input name="name" type="text" placeholder="name">
-    <label for="email"></label><input name="email" type="text" placeholder="email">
-    <label for="pwd"></label><input name="pwd" type="password" placeholder="********">
-    <label for="confirmPwd"></label><input name="confirmPwd" type="password" placeholder="********">
-    <button type="submit" id="modal-submit">Create an account</button>
+  
+  <form onsubmit="register(event)" action="/register" method="post" >
+    <div class="modal-input">
+      <label for="name"></label><input name="name" type="text" placeholder="name" required>
+      <label for="email"></label><input name="email" type="text" placeholder="email" required>
+      <p class="email-invalid">"Oops! That doesn't look like a valid email. Could you double-check it?"</p>
+      <label for="password"></label><input name="password" id="password" type="password" placeholder="********" required>
+      <label for="confirmPassword"></label><input id="confirmPassword" name="confirmPassword" type="password" placeholder="********" required>
+      <p class="pwd-invalid">Please make sure both passwords are identical.</p>
+      <button type="submit" id="modal-submit">Create an account</button>
+    </form>
   </div>
 </dialog>
     
@@ -264,6 +269,7 @@
     <p>Enter your username and password to securely access
       your account and manage your services...</p>
   </div>
+   <form onsubmit="login()">
   <div class="modal-input">
     <label for="username"></label><input name="username" type="text" placeholder="username">
     <label for="pwd"></label><input name="password" type="password" placeholder="********" value=""  minlength="8" required /> 
@@ -274,16 +280,17 @@
       <span>forgot password</span>
 
     </div>
-    <button type="button" id="modal-submit" onclick="login()">Login</button>
+    <button type="submit" id="modal-submit" onclick="login()">Login</button>
     <div class="modal-title-bottom">
       <p>Don't have an account? </p> <a href="#" id="signUp">Sign Up here</a>
     </div>
   </div>
+</form>
 </dialog>
 
 
 </main>
- <script src="/assets/js/home.js" ></script>
+ <script src="/assets/js/home.js" defer></script>
 </body>
 
 </html>
