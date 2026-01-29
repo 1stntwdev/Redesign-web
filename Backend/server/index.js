@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 const secret = 'lovedev';
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
 const cors = require('cors');
+const { sourceMapsEnabled } = require('process');
 
 app.use(cors()); 
 // --- Config & Middleware ---
@@ -144,8 +145,8 @@ const db = {
     insert: async (data) => {
 
         const query = `
-        INSERT INTO product_plant (name, description, price, high, wide, img, light_type_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO product_plant (name, description, price, high, wide, img, light_type_id,amount)
+            VALUES (?, ?, ?, ?, ?, ?, ?,?)
         `;
         const values = [
             data.name,
@@ -154,7 +155,8 @@ const db = {
             data.high,
             data.wide,
             data.img,
-            data.light_type_id
+            data.light_type_id,
+            data.amount
         ]
         // const [result] = await conn.query('INSERT INTO product_plant SET ?', data);
         // return result;
@@ -255,7 +257,8 @@ app.post('/upload', upload.single('photo'), async (req, res, next) => {
             high: parseFloat(req.body.high),
             wide: parseFloat(req.body.wide),
             img: req.file.filename,
-            light_type_id: req.body.category
+            light_type_id: req.body.category,
+            amount:req.body.amount
         };
 
         // บันทึกลง database
@@ -263,8 +266,10 @@ app.post('/upload', upload.single('photo'), async (req, res, next) => {
 
         res.status(201).json({
             message: 'Product added successfully',
-            product: result
+            product: result,
+            succsss:true
         });
+         
     } catch (error) {
         next(error);
     }
@@ -291,6 +296,7 @@ app.post('/api/insert', async (req, res, next) => {
     try {
         const result = await db.insert(req.body);
         res.status(201).json(result);
+
     } catch (error) { next(error); }
 });
 

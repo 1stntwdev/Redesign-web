@@ -28,7 +28,7 @@ export const handleLocation = async () => {
             console.log('path',path)
             await loadProducts();
         }
-           
+       
     }catch(error){
         console.error("Fetch error:", error);
     }

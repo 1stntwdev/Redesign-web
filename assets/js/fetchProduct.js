@@ -1,6 +1,6 @@
 export const loadProducts = async () => {
     try {
-        console.log('เริ่ม function')
+        // console.log('เริ่ม function onload')
         const response = await fetch('/api/fetchAll');
         const products = await response.json();
 

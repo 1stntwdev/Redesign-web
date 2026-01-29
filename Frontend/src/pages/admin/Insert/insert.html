@@ -2,14 +2,17 @@
        <h1>Insert New Product</h1> 
        <button type="submit" form="form-grid">Add Product</button>
     </div>
-
-    <form class="form-grid" id="form-grid" action="/upload" method="post" enctype="multipart/form-data">
+<!--BACKLOG เปลี่ยน เปลี่ยน onclick ให้รีโหลดหน้า -->
+    <form class="form-grid" id="form-grid" 
+    action="/upload"
+     method="post" enctype="multipart/form-data">
       <section class="naming-details">
         <h3>Insert General Information</h3>
       <label for="name" >Product Name<input type="text" name="name" id="name"></label>
       <label for="description" >Description<input type="text" id="description" name="description"></label>
       <label for="high">high size<input type="text" name="high" id="high"></label>
-      <label for="high">high size<input type="text" name="wide" id="wide"></label>
+      <label for="high">pot size<input type="text" name="wide" id="wide"></label>
+      <label for="amount">amount<input type="text" name="amount" id="amount"></label>
       </section>
       <section class="pricing-details">
         <h3>Price</h3>
@@ -33,4 +36,8 @@
         </select>
       </section>
     </form>
+<script>
+
+</script>
+  
 
