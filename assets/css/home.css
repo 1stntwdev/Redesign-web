@@ -1,7 +1,9 @@
+
 *{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+   font-family: "Roboto", sans-serif;
    a{
     text-decoration: none;
   }
@@ -431,7 +433,9 @@ button{
       height: 100%;
       object-fit: cover;
     }
-   
+   .modal-input label {
+    font-weight: 600 !important;
+}
 /* #mobile size */
 @media only screen and (max-width:640px) {
 .menu{

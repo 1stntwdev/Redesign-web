@@ -53,6 +53,9 @@ async function register(event) {
   const password = document.querySelector('#password').value;
   const confirmPassword = document.querySelector('#confirmPassword').value;
 
+  // css change
+  const emailInput = document.querySelector('#input-email');
+  const nameInput = document.querySelector('#input-name');
   const displayemailInvalid = document.querySelector('.email-invalid');
   const displaypwdInvalid = document.querySelector('.pwd-invalid');
 
@@ -61,6 +64,7 @@ async function register(event) {
   const modalRegister = document.getElementById('myRegisterModal');
   if (!validEmail) {
     displayemailInvalid.style.display = "block";
+    emailInput.classList.add("input-error");
     return;
   }
   if (!isPasswordMatch) {
@@ -88,6 +92,7 @@ async function register(event) {
     else if (response.status === 202) {
       nameElent.style.color = "red";
       nameElent.value = errorUser;
+      nameInput.classList.add("input-error");
       setTimeout(() => {
         nameElent.style.color = "black";
         nameElent.value = ""

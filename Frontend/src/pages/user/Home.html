@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
+<!-- import Font -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=BBH+Bogle&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <script src="/assets/js/toggleHome.js" defer></script>
@@ -241,21 +245,19 @@
   </div>
   <div class="modal-title">
     <h2>Create an account</h2>
-    <p>Enter your email and password to securely access
-      your account and manage your services.</p>
   </div>
   
   <form onsubmit="register(event)" action="/register" method="post" >
     <div class="modal-input">
-      <label for="name"></label><input name="name" type="text" placeholder="name" required>
-      <label for="email"></label><input name="email" type="text" placeholder="email" required>
-      <p class="email-invalid">"Oops! That doesn't look like a valid email. Could you double-check it?"</p>
-      <label for="password"></label><input name="password" id="password" type="password" placeholder="********" required>
+      <label for="name">Username</label><input name="name" id="input-name" type="text" placeholder="name" required>
+      <label for="email">Email</label><input name="email"id="input-email" type="text" placeholder="email" required>
+      <p class="email-invalid"> Oops That doesn't look like a valid email. Could you double-check it ❓</p>
+      <label for="password">Password</label><input name="password" id="password" type="password" placeholder="********" required>
       <label for="confirmPassword"></label><input id="confirmPassword" name="confirmPassword" type="password" placeholder="********" required>
-      <p class="pwd-invalid">Please make sure both passwords are identical.</p>
+      <p class="pwd-invalid"> Please make sure both passwords are identical ❗</p>
       <button type="submit" id="modal-submit">Create an account</button>
-    </form>
-  </div>
+    </div>
+  </form>
 </dialog>
     
    
@@ -266,8 +268,6 @@
   </div>
   <div class="modal-title">
     <h2>Login</h2>
-    <p>Enter your username and password to securely access
-      your account and manage your services...</p>
   </div>
    <form onsubmit="login()">
   <div class="modal-input">
