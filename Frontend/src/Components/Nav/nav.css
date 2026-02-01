@@ -1,0 +1,176 @@
+nav{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+   a{
+    text-decoration: none;
+  }
+}
+body {
+  font-family: Arial, sans-serif;
+}
+/* #region NAVBAR & MENU */
+nav{
+  border-bottom: 1px solid #0000000d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  width: 100%;
+  height: 60px;
+  margin: 0 auto;
+  position: relative;
+}
+.logo{
+  width: bold;
+  background-color: #00642d;
+  color: #fff;
+  padding: 0.5em;
+}
+.menu{
+  display: flex;
+  gap: 20px;
+  list-style: none;
+ a{
+   color: #000;
+   transition: color 0.3s;
+ }
+}
+.menu a:hover {
+  color: #00642d;
+}
+.icon-bar a{
+  color: #000;
+  cursor: pointer;
+}
+.icon-bar a:nth-child(1):hover{
+  background-color: #e6e6e6;
+}
+.icon-bar a:nth-child(2):hover{
+  background-color: #056b00;
+}
+.icon-bar a:nth-child(1){
+  background-color: #f1f6fc;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 0.5px solid #a0a4a8;
+  transition: background-color 0.3s;
+}
+.icon-bar a:nth-child(2){
+  background-color: #089900;
+  padding: 0.5em;
+  border-radius: 5px;
+  color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+.fa-solid{
+  color: #00642d;
+}
+.icon-cart,.toggle-icon {
+  display: none;
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: -100%;
+  width: 70%;
+  height: calc(100vh - 60px);
+  background-color: #f2f2f2;
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 999;
+  a{
+    color: #000;
+}
+}
+.menu-mobile {
+  list-style: none;
+  padding: 1rem 0rem;
+  a{
+    text-decoration: none;
+  }
+}
+.menu-mobile a {
+  font-size: 1.2rem;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+.menu-submit{
+  list-style: none;
+  padding: 1rem 0rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  border-bottom: 1px solid #a0a4a8;
+  a{
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+}
+#modal-submit{
+  background-color: #089900;
+  padding: 0.8rem;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+}
+#modal-submit:hover{
+  background-color: #056b00;
+}
+.menu-mobile a:hover {
+  background-color: #089900;;
+  color: #fff;
+  li{
+    width: 100%;
+  }
+}
+.modal-title-bottom{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* #mobile size */
+@media only screen and (max-width:640px) {
+.menu{
+  display: none;
+}
+.toggle-icon{
+  display: block;
+}
+.icon-cart{
+  display: block;
+  a{
+    color: #000;
+  }
+}
+.icon-bar {
+  display: none;
+}
+.mobile-menu{
+  display: block;
+}
+.mobile-menu.active {
+  left: 0;
+}
+.nav-left{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.menu-submit a {
+  transition: color 0.5s;
+
+}
+.menu-submit a:hover{
+  color: #00642d;
+}
+/* END NAV */
+}

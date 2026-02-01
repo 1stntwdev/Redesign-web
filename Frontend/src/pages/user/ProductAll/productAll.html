@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="/assets/css/myLoginModal.css">
+  <link rel="stylesheet" href="productAll.css">
+  <link rel="stylesheet" href="/Frontend/src/Components/Nav/nav.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <!-- JS modal -->
+   
+<script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
+</head>
+<body>
+  <section id="nav-container"></section>
+
+<section class="container-area">
+  <aside class="filter-product">
+    <div class="category">
+      <label for="">Category</label>
+      <ul>
+        <li><input type="checkbox" value="Indoor Plants"><label for="Indoor Plants">Indoor Plants</label></li>
+        <li><input type="checkbox" value="Partial Shade"><label for="Partial Shade">Partial Shade</label></li>
+        <li><input type="checkbox"value="Sun-loving plants"><label for="Sun-loving plants">Sun-loving plants</label></li>
+      </ul>
+      </div>
+      <div class="price-range">
+        <label for="price-range">Price Range: $0 - $<span id="price-display">50</span></label>
+<input type="range" id="price-range" min="0" max="500" value="50" step="10">
+      </div>
+      <button>Filter</button>
+  </aside>
+  <section class="product-display" id="product-display">
+<div id="product-container"></div>
+
+<div class="pagination-btn">
+  <button id="btn-prev" >prev</button>
+  <button id="btn-next" >Next</button>
+</div>
+  </section>
+</section>
+  
+</body>
+
+
+<script type="module">
+import { loadNav,loadProduct ,setupPagination} from "./productAll.js";
+loadNav();
+loadProduct();
+setupPagination();
+
+</script>
+</html>

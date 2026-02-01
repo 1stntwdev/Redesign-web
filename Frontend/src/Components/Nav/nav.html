@@ -1,0 +1,89 @@
+<nav>
+      <div class="nav-left">
+        <div class="toggle-icon">
+          <a href="#"><i id="toggle-bar" class="fa-solid fa-bars"></i></a>
+        </div>
+        <div class="logo">Plant 
+        </div>
+        
+      </div>
+      <ul class="menu">
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Contact</a></li>
+        <li><a href="#">Shopping carts<i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
+      </ul>
+      
+      <div class="icon-bar">
+        <a class="active" href="#" id="btn-login">Login</a>
+        <a class="active" href="#" id="btn-register">Register</a>
+      </div>
+      
+      <div class="icon-cart">
+        <a href="#"><i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i></a></li>
+      </div>
+      
+  </nav>
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu">
+    <ul class="menu-submit">
+      <li><a href="#" id="btn-login-mobile">Login</a></li>
+      <li><a href="#register" id="btn-register-mobile">Register</a></li>
+    </ul>
+
+    <ul class="menu-mobile">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#"><i id="toggle-cart-shopping" class="fa-solid fa-cart-shopping"></i>Shopping Carts</a></li>
+    </ul>
+  </div>
+  <!-- POP UP LOGIN FORM -->
+   <!-- Focus Trapping - press "tap" nust inside form -->
+    <!-- Body Scroll Lock -->
+<dialog id="myRegisterModal">
+  <div class="modal-top">
+    <span id="closeBtnRegister" class="closeBtn">&#10006;</span>
+  </div>
+  <div class="modal-title">
+    <h2>Create an account</h2>
+  </div>
+  
+  <form onsubmit="register(event)" action="/register" method="post" >
+    <div class="modal-input">
+      <label for="name">Username</label><input name="name" id="input-name" type="text" placeholder="name" required>
+      <label for="email">Email</label><input name="email"id="input-email" type="text" placeholder="email" required>
+      <p class="email-invalid"> Oops That doesn't look like a valid email. Could you double-check it ❓</p>
+      <label for="password">Password</label><input name="password" id="password" type="password" placeholder="********" required>
+      <label for="confirmPassword"></label><input id="confirmPassword" name="confirmPassword" type="password" placeholder="********" required>
+      <p class="pwd-invalid"> Please make sure both passwords are identical ❗</p>
+      <button type="submit" id="modal-submit">Create an account</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="myLoginModal">
+  <div class="modal-top">
+    <span id="closeBtnLogin" class="closeBtn">&#10006;</span>
+  </div>
+  <div class="modal-title">
+    <h2>Login</h2>
+  </div>
+   <form onsubmit="login()">
+  <div class="modal-input">
+    <label for="username"></label><input name="username" type="text" placeholder="username">
+    <label for="pwd"></label><input name="password" type="password" placeholder="********" value=""  minlength="8" required /> 
+    <div class="modal-rememberMe">
+      <div class="modal-checkbox">
+        <input type="checkbox" id="rememberMe" name="rememberMe"> <label for="rememberMe">Remember me</label>
+      </div>
+      <span>forgot password</span>
+
+    </div>
+    <button type="submit" id="modal-submit" onclick="login()">Login</button>
+    <div class="modal-title-bottom">
+      <p>Don't have an account? </p> <a href="#" id="signUp">Sign Up here</a>
+    </div>
+  </div>
+</form>
+</dialog>
