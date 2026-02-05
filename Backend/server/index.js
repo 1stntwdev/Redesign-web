@@ -283,13 +283,16 @@ app.get('/api/fetchAll', async (req, res, next) => {
 });
 app.get('/api/productPagination',async(req,res,next)=>{
     try {
-        let {page = 1} = req.query;
-        const productShow = 3;
-        const pageNext = (page - 1) * productShow
+
+        let {page = 1,product = 3} = req.query;
+        
+        const productShow = parseInt(product);
+        const pageNext = (page - 1) * productShow;
         const [rows] = await conn.query('SELECT * FROM product_plant limit ? OFFSET ?',[productShow,pageNext]);
         res.json(rows);
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).json({error: 'Server error'});
     }
 })
 app.get('/api/product_id/:id', async (req, res, next) => {

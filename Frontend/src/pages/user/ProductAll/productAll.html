@@ -20,22 +20,33 @@
     <div class="category">
       <label for="">Category</label>
       <ul>
-        <li><input type="checkbox" value="Indoor Plants"><label for="Indoor Plants">Indoor Plants</label></li>
-        <li><input type="checkbox" value="Partial Shade"><label for="Partial Shade">Partial Shade</label></li>
-        <li><input type="checkbox"value="Sun-loving plants"><label for="Sun-loving plants">Sun-loving plants</label></li>
+        <li><input type="checkbox" value="Indoor Plants" id="Indoor Plants"><label for="Indoor Plants">Indoor Plants</label></li>
+        <li><input type="checkbox" value="Partial Shade"  id="Partial Shade"><label for="Partial Shade">Partial Shade</label></li>
+        <li><input type="checkbox"value="Sun-loving plants" id="Sun-loving plants"><label for="Sun-loving plants">Sun-loving plants</label></li>
       </ul>
       </div>
       <div class="price-range">
         <label for="price-range">Price Range: $0 - $<span id="price-display">50</span></label>
 <input type="range" id="price-range" min="0" max="500" value="50" step="10">
       </div>
-      <button>Filter</button>
+      <div class="chose-product">
+        
+          <select name="product" id="viewList">
+            <option value="3" selected>3</option>
+            <option value="6">6</option>
+          </select>
+          <button type="submit">Filter</button>
+</div>
   </aside>
   <section class="product-display" id="product-display">
-<div id="product-container"></div>
+    <!-- search input -->
+<div id="product-container" class="product-container">
+  <!-- loop plant product -->
+</div>
 
 <div class="pagination-btn">
   <button id="btn-prev" >prev</button>
+  <!-- ตัวเลข -->
   <button id="btn-next" >Next</button>
 </div>
   </section>
@@ -45,10 +56,12 @@
 
 
 <script type="module">
-import { loadNav,loadProduct ,setupPagination} from "./productAll.js";
+import { loadNav,loadProduct ,setupPagination,selectShow} from "./productAll.js";
 loadNav();
 loadProduct();
 setupPagination();
+const viewList = document.getElementById("viewList");
 
+selectShow();
 </script>
 </html>

@@ -27,3 +27,33 @@
   background-color: #f9f9f9;
   padding: 20px;
 }
+.product-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.card-grid-container{
+  margin: 0 auto;
+}
+/* card grid */
+.card-area{
+  border: 1px solid #ddd;
+  max-width: 350px;
+  p{
+    font-weight: 600;
+  }
+}
+.description,.name{
+  width: 250px;
+}
+.img-card img{
+  height: 250px;
+  width: 250px;
+  height: auto;
+  border-radius: 5px;
+}
+.pagination-btn{
+  margin: 2rem;
+  display: flex;
+  gap:1rem;
+  justify-content: center;
+}
