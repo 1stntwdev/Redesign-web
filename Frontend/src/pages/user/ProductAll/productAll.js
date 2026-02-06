@@ -20,16 +20,14 @@ let currentPage = 1;
 // get
 
 export async function selectShow(){
+  
   const viewList = document.getElementById("viewList");
-
   viewList.addEventListener('change', async (event)=>{
   const productShow = event.target.value;
   // API fetch dynamic follow productShow;
   try {
     await loadProduct(1,productShow);
-    
   } catch (error) {
-    
   }
 })
 }
@@ -38,7 +36,8 @@ export async function selectShow(){
   // ส่ง api
 
   // loadProduct
-export async function loadProduct(page = 1,productShow = 3) {
+export async function loadProduct(page = 1,productShow = 6) {
+ 
 
   const content = document.getElementById('product-display');
 
@@ -57,19 +56,27 @@ export async function loadProduct(page = 1,productShow = 3) {
     }
     const productContainer = document.getElementById('product-container');
     productContainer.innerHTML = ''; 
+    let description ='';
+    let nameDiv;
     data.forEach(element => {
-      if(element.description.length > 30){
+      if(element.description.length > 60){
         let descriptionCut = element.description.slice(0, 50);
-     
+        description = `<div class="description"><span>${descriptionCut}... </span></div>`;
+      }else{
+        description = `<div class="description"><span>${element.description}</span></div>`;
+      }
+      const nameDiv = element.name.length >= 20 ? 
+      element.name.slice(0,19)+"..." :
+      element.name
       
       const row = `<div class="card-grid-container">
-    <div class="card-area">
+      <div class="card-area">
       <div class="img-card">
         <img src="/Backend/server/uploads/${element.img}" width=50px>
       </div>
-       <div class="name"><p>${element.name}...</p></div>
+       <div class="name"><p>${nameDiv}</p></div>
        
-       <div class="description"><span>${descriptionCut}... </span></div>
+       ${description}
        <div class="name"><span>${element.price} THB</span>
        <button class="add-to-cart" data-id="${element.plant_id}"> <i class="fa-solid fa-cart-plus"></i>
        </button>
@@ -77,9 +84,9 @@ export async function loadProduct(page = 1,productShow = 3) {
        </div>
   </div>`
   productContainer.innerHTML += row;
+}
   
-  }
-    });
+    );
     console.log(`response `, response.data)
 
   } catch (error) {
@@ -111,6 +118,7 @@ productContainer.addEventListener('click',(e)=>{
   const plantId = btn.dataset.id; 
   addTocart(plantId);
 })
+let cart = [];
 function addTocart(plantId){
   console.log(`add`,plantId);
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -118,11 +126,9 @@ function addTocart(plantId){
     cart.push(plantId);
   }else{
     // ถ้ามีสินค้า ให้เพิ่มจำนวนแทน data id ของจำนวน
+    
     console.log(`add qyt`)
-
   }
-
-  
   console.log(cart);
 }
 window.loadProduct = loadProduct; 

@@ -57,3 +57,48 @@
   gap:1rem;
   justify-content: center;
 }
+/* =================== price-range-area =================== */
+.price-range-area{
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+.price-input{
+  margin-top: 0.2rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+.range-slider{
+  position: relative;
+  width: 100%;
+  height: 5px;
+  margin: 30px 0;
+  background-color: #8a8a8a;
+}
+.slider-track{
+  height: 100%;
+  position: absolute;
+  background-color: red;
+}
+.range-slider input{
+  position: absolute;
+  width: 100%;
+  appearance: none;
+  background: none;
+  pointer-events: none;
+  top: 50%;   /* point to center */
+  transform: translateY(-50%);
+
+}
+input[type="range"]::-webkit-slider-thumb{
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: #fff;
+  pointer-events: auto;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: 0 0.1rem 0.5rem -0.1rem #000;
+}

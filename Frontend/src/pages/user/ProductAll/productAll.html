@@ -25,10 +25,21 @@
         <li><input type="checkbox"value="Sun-loving plants" id="Sun-loving plants"><label for="Sun-loving plants">Sun-loving plants</label></li>
       </ul>
       </div>
-      <div class="price-range">
-        <label for="price-range">Price Range: $0 - $<span id="price-display">50</span></label>
-<input type="range" id="price-range" min="0" max="500" value="50" step="10">
+      <div class="price-range-area">
+        <!-- ดึงค่า max -->
+        <label for="price-range">Price</label>
+        <div class="range-slider">
+          <span class="slider-track"></span>
+          <input type="range" name="min_val" id="price-range" min="0" max="5000" value="50" >
+          <input type="range" name="max_val" id="price-range" min="0" max="5000" value="2000">
+        </div>
+        
+        <div class="price-input">
+          <div class="inputBox-left" ><input type="text" id="input-left" style="width: 20px;" ><span>THB</span></div>
+          <div class="inputBox-right" ><input type="text" id="input-right" style="width: 20px;"><span>THB</span></div>
+        </div>
       </div>
+      <!-- price dynamic ref:w3school -->
       <div class="chose-product">
         
           <select name="product" id="viewList">

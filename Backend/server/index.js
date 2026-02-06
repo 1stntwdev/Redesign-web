@@ -284,7 +284,7 @@ app.get('/api/fetchAll', async (req, res, next) => {
 app.get('/api/productPagination',async(req,res,next)=>{
     try {
 
-        let {page = 1,product = 3} = req.query;
+        let {page = 1,product = 6} = req.query;
         
         const productShow = parseInt(product);
         const pageNext = (page - 1) * productShow;
