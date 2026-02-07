@@ -102,3 +102,25 @@ input[type="range"]::-webkit-slider-thumb{
   cursor: pointer;
   box-shadow: 0 0.1rem 0.5rem -0.1rem #000;
 }
+.pagination-btn {
+  button{
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #a4a4a4;
+    cursor: pointer;
+  }
+}
+.pagination-btn button:hover {
+   background-color: #ffa378;
+   transition: background-color 0.5s 50ms;
+  color: #fff;
+}
+.activeNumberBtn{
+  background-color: #ff854d;
+  color: #fff;
+  border: none !important;
+}
+.run-number{
+  display: flex;
+  gap: 0.2rem;
+}

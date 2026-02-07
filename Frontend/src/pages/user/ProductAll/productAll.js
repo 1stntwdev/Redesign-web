@@ -17,6 +17,7 @@ export async function loadNav() {
 }
 
 let currentPage = 1;
+let totalPages = 1;
 // get
 
 export async function selectShow(){
@@ -36,20 +37,25 @@ export async function selectShow(){
   // ส่ง api
 
   // loadProduct
-export async function loadProduct(page = 1,productShow = 6) {
+export async function loadProduct(page = currentPage,productShow = 6) {
  
 
   const content = document.getElementById('product-display');
 
   try {
     console.log('เริ่ม function loadProduct')
+    
     const response = await axios.get('http://localhost:8000/api/productPagination', {
       params: {
         page: page,
         product: productShow
       }
     });
-    const data = response.data
+    const result = response.data;
+    const data = result.data;
+    totalPages = result.totalPages;
+    currentPage = result.currentPage;
+
     if(data.length === 0){
       currentPage --
       return;
@@ -84,24 +90,40 @@ export async function loadProduct(page = 1,productShow = 6) {
        </div>
   </div>`
   productContainer.innerHTML += row;
-}
-  
-    );
-    console.log(`response `, response.data)
-
-  } catch (error) {
+});
+renderPaginationNumbers();    
+  } 
+  catch (error) {
     console.log(error)
   }
 }
+
+const prevBtn = document.getElementById('btn-prev');
+const nextBtn = document.getElementById('btn-next');
+
+function renderPaginationNumbers(){
+  const runNumber = document.querySelector('.run-number');
+  // ดักตอนฟังชันก์ทำงาน ให้รีเซ็ทปุ่ม 1 2 3 ค่อยใส่ใหม่
+  runNumber.innerHTML = '';
+// สร้างปุ่ม 
+  for (let i = 1; i <= totalPages; i++) {
+    const btnNumber = document.createElement("button");
+    btnNumber.textContent = i;
+    runNumber.append(btnNumber);
+    if(i === currentPage) {
+      btnNumber.classList.add("activeNumberBtn");
+    }
+    btnNumber.addEventListener("click",()=>{
+      currentPage = i;
+      loadProduct(currentPage);
+    })
+  }
+}
 export function setupPagination() {
-  const nextBtn = document.getElementById('btn-next')
   nextBtn.addEventListener('click', () => {
     currentPage++
     loadProduct(currentPage);
-    // count range
   });
-
-  const prevBtn = document.getElementById('btn-prev')
   prevBtn.addEventListener('click', () => {
     currentPage--
     if (currentPage <= 0) {

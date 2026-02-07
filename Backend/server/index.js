@@ -283,13 +283,19 @@ app.get('/api/fetchAll', async (req, res, next) => {
 });
 app.get('/api/productPagination',async(req,res,next)=>{
     try {
-
-        let {page = 1,product = 6} = req.query;
         
+        let {page = currentPage,product = 6} = req.query;
         const productShow = parseInt(product);
         const pageNext = (page - 1) * productShow;
+        const [[{total}]] = await conn.query('SELECT COUNT(*) as total FROM product_plant');
         const [rows] = await conn.query('SELECT * FROM product_plant limit ? OFFSET ?',[productShow,pageNext]);
-        res.json(rows);
+        res.json({
+            data:rows,
+            total:total,
+            currentPage : parseInt(page),
+            totalPages : Math.ceil(total/productShow)
+
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({error: 'Server error'});
