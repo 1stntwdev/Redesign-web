@@ -1,17 +1,21 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 const port = 8000;
-const bodyParser = require('body-parser');
-const mysql = require('mysql2/promise');
-const multer = require('multer');
-const path = require('path');
-const bcrypt = require('bcrypt');
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+import bodyParser from 'body-parser';
+import mysql from'mysql2/promise';
+import multer from'multer';
+import path from'path';
+import bcrypt from'bcrypt';
+import dotenv from 'dotenv';
+dotenv.config();
+import jwt from'jsonwebtoken';
 const secret = 'lovedev';
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
-const cors = require('cors');
-const { sourceMapsEnabled } = require('process');
+import cors from'cors';
+import { sourceMapsEnabled } from 'process';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors()); 
 // --- Config & Middleware ---
