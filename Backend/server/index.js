@@ -17,6 +17,7 @@ app.use(cors());
 // --- Config & Middleware ---
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../../Frontend')));
+app.use('/css',express.static(path.join(__dirname,'../../Frontend/src/assets/css')));
 app.use('/assets', express.static(path.join(__dirname, '../../assets')));
 app.use('/uploads', express.static(path.join(__dirname, '../server/uploads')));
 
