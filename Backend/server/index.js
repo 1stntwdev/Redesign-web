@@ -13,10 +13,13 @@ const secret = 'lovedev';
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB } = process.env;
 import cors from'cors';
 import { sourceMapsEnabled } from 'process';
+// ai gen for __dirname
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import router from './routes/router.js';
+app.use(router)
 app.use(cors()); 
 // --- Config & Middleware ---
 app.use(bodyParser.json());
@@ -153,6 +156,7 @@ const db = {
         INSERT INTO product_plant (name, description, price, high, wide, img, light_type_id,amount)
             VALUES (?, ?, ?, ?, ?, ?, ?,?)
         `;
+        console.log(query)
         const values = [
             data.name,
             data.description,
@@ -163,8 +167,7 @@ const db = {
             data.light_type_id,
             data.amount
         ]
-        // const [result] = await conn.query('INSERT INTO product_plant SET ?', data);
-        // return result;
+       
         const [result] = await conn.query(query, values);
         return { id: result.insertId, ...data };
     },
@@ -177,115 +180,10 @@ const db = {
         return result;
     }
 };
+export default db;
 
-// PUT /api/update/:id - สำหรับแก้ไขสินค้า
-app.put('/api/update/:id', upload.single('photo'), async (req, res, next) => {
-    try {
-        const id = req.params.id;
 
-        console.log('=== Update Product ===');
-        console.log('ID:', id);
-        console.log('Body:', req.body);
-        console.log('File:', req.file);
 
-        // Validate
-        if (!req.body.name) {
-            return res.status(400).json({ error: 'Product name is required' });
-        }
-
-        // เตรียมข้อมูลที่จะ update
-        const productData = {
-            name: req.body.name,
-            description: req.body.description || '',
-            price: parseFloat(req.body.price) || 0,
-            high: parseFloat(req.body.high) || 0,
-            wide: parseFloat(req.body.wide) || 0,
-            light_type_id: req.body.category
-        };
-
-        // ✅ จัดการรูปภาพ
-        if (req.file) {
-            // มีรูปใหม่ → ใช้รูปใหม่
-            productData.img = req.file.filename;
-
-            // ลบรูปเก่า (optional แต่แนะนำ)
-            if (req.body.current_img && req.body.current_img !== 'null') {
-                const fs = require('fs');
-                const oldPath = `./uploads/${req.body.current_img}`;
-                if (fs.existsSync(oldPath)) {
-                    fs.unlinkSync(oldPath);
-                    console.log('Deleted old image:', req.body.current_img);
-                }
-            }
-        } else {
-            // ไม่มีรูปใหม่ → ใช้รูปเดิม
-            productData.img = req.body.current_img;
-        }
-
-        console.log('Product data to update:', productData);
-
-        // Update database
-        const result = await db.update(id, productData);
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        res.json({
-            message: 'Product updated successfully',
-            product: { id, ...productData }
-        });
-
-    } catch (error) {
-        console.error('Update error:', error);
-        next(error);
-    }
-});
-
-app.post('/upload', upload.single('photo'), async (req, res, next) => {
-    // res.send(req.file);
-    try {
-        console.log('req.body:', req.body);
-        console.log('req.file:', req.file);
-
-        if (!req.file) {
-            return res.status(400).json({ error: 'Please upload a photo' });
-        }
-        if (!req.body.name) {
-            return res.status(400).json({ error: 'Product name is required' });
-        }
-
-        const productData = {
-            name: req.body.name,
-            description: req.body.description,
-            price: parseFloat(req.body.price),
-            high: parseFloat(req.body.high),
-            wide: parseFloat(req.body.wide),
-            img: req.file.filename,
-            light_type_id: req.body.category,
-            amount:req.body.amount
-        };
-
-        // บันทึกลง database
-        const result = await db.insert(productData);
-
-        res.status(201).json({
-            message: 'Product added successfully',
-            product: result,
-            succsss:true
-        });
-         
-    } catch (error) {
-        next(error);
-    }
-});
-
-app.get('/api/fetchAll', async (req, res, next) => {
-    try {
-        const result = await db.fetchAll();
-        res.json(result);
-    } catch (error) { next(error); }
-});
 app.get('/api/productPagination',async(req,res,next)=>{
     try {
         
@@ -306,43 +204,7 @@ app.get('/api/productPagination',async(req,res,next)=>{
         res.status(500).json({error: 'Server error'});
     }
 })
-app.get('/api/product_id/:id', async (req, res, next) => {
-    try {
-        const product = await db.getById(req.params.id);
-        if (!product) {
-            return res.status(404).json({ message: "Can't find id in database" });
-        }
-        res.json(product);
-    } catch (error) { next(error); }
-});
 
-app.post('/api/insert', async (req, res, next) => {
-    try {
-        const result = await db.insert(req.body);
-        res.status(201).json(result);
-
-    } catch (error) { next(error); }
-});
-
-app.put('/api/update/:id', async (req, res, next) => {
-    try {
-        const result = await db.update(req.params.id, req.body);
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Can't find product to update" });
-        }
-        res.json({ message: "Update successfully", result });
-    } catch (error) { next(error); }
-});
-
-app.delete('/api/delete/:id', async (req, res, next) => {
-    try {
-        const result = await db.delete(req.params.id);
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Can't find product to delete" });
-        }
-        res.json({ message: 'Delete successfully' });
-    } catch (error) { next(error); }
-});
 // --- Routes ---
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../../Frontend/src/pages/admin/Dashboard/dashboard.html'));
