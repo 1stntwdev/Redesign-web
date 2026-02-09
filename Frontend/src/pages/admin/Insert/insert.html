@@ -3,27 +3,23 @@
        <button type="submit" form="form-grid">Add Product</button>
     </div>
 <!--BACKLOG เปลี่ยน เปลี่ยน onclick ให้รีโหลดหน้า -->
-    <form class="form-grid" id="form-grid" 
-    action="/upload" method="post" enctype="multipart/form-data">
+    <form class="form-grid" id="form-grid"  enctype="multipart/form-data">
       <section class="naming-details">
         <h3>Insert General Information</h3>
-      <label for="name" >Product Name<input type="text" name="name" id="name"></label>
-      <label for="description" >Description<input type="text" id="description" name="description"></label>
+      <label for="name" >Product Name<input type="text" name="name" id="name" required></label>
+      <label for="description" >Description<textarea type="text" id="description" name="description"></textarea></label>
       <label for="high">high size<input type="number" name="high" id="high"></label>
       <label for="wide">pot size<input type="number" name="wide" id="wide"></label>
-      <label for="amount">amount<input type="number" name="amount" id="amount"></label>
+      <label for="amount">amount<input type="number" name="amount" id="amount" required></label>
       </section>
       <section class="pricing-details">
         <h3>Price</h3>
-      <label for="price">Base Price<input type="text" id="price" name="price"></label>
+      <label for="price">Base Price<input type="number" id="price" name="price" required></label>
       </section>
       <section class="media-details">
         <h3>Product Media</h3>
         <div class="img-details">
-          <input type="file" 
-          id="product_pic"
-          name="photo"
-          accept=".jpg, .jpeg, .png, .webp">
+          <input type="file" id="product_pic" name="photo">
         </div>
       </section>
       <section class="category-details"><h3>Category</h3>
@@ -35,8 +31,3 @@
         </select>
       </section>
     </form>
-<script>
-
-</script>
-  
-

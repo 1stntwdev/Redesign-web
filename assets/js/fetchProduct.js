@@ -28,13 +28,14 @@ export const loadProducts = async () => {
     }
 };
 const deleteProduct = async(id)=>{
+
     try{
         const respone = await fetch(`/api/delete/${id}`,{
             method:"DELETE"
         });
         if(respone.ok) {
             alert('Product has been delete');
-            location.reload();
+            loadProducts();
         }
     }catch(error){
         console.error('something wrong',error)

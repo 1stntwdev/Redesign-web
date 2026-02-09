@@ -10,7 +10,7 @@
 
 
 
-    <form class="form-grid" id="form-grid" action="/upload" method="post" enctype="multipart/form-data">
+    <form class="form-grid" id="form-grid" enctype="multipart/form-data">
       <section class="naming-details">
         <h3>General Information</h3>
       <label for="name" >Product Name<input type="text" name="name" id="name"></label>
@@ -27,8 +27,7 @@
         <div class="img-details">
           <input type="file" 
           id="product_pic"
-          name="photo"
-          accept=".jpg, .jpeg, .png, .webp">
+          name="photo" >
         </div>
       </section>
       <section class="category-details"><h3>Category</h3>

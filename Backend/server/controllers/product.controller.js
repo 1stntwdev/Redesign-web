@@ -1,29 +1,52 @@
-import db from "../index.js";
-
+import productModel from "../models/product.model.js";
 const productController = {
-
   apiFetchall: async (req, res, next) => {
     try {
-      const result = await db.fetchAll();
+      const result = await productModel.fetchAll();
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error){ 
+      next(error); 
+    }
   },
 
   findproductId: async (req, res, next) => {
     try {
-      const product = await db.getById(req.params.id);
+      const product = await productModel.getById();
       if (!product) {
         return res.status(404).json({ message: "Can't find id in database" });
       }
       res.json(product);
     } catch (error) { next(error); }
   },
-  insertProduct: async (req, res, next) => {
-    // res.send(req.file);
+productPagination: async (req, res, next) => {
     try {
-      // console.log('req.body:', req.body);
-      // console.log('req.file:', req.file);
+      const { page = 1, product = 6 } = req.query;
+      const result = await productModel.pagination(
+        parseInt(page),
+        parseInt(product)
+      );
+      res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  },
+  deleteproductId : async(req,res,next)=>{
+try {
+  const result = await productModel.delete(req.params.id);
+  if (result.affectedRows === 0) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      res.json({ message: 'Delete successfully' });
+    } catch (err) {
+      next(err);
+    }
+  },
 
+  insertProduct: async (req, res, next) => {
+    try {
+       console.log('=== INSERT PRODUCT ===');
+      console.log(`body`,req.body);
+      console.log(`file`,req.file);
       if (!req.file) {
         return res.status(400).json({ error: 'Please upload a photo' });
       }
@@ -42,7 +65,7 @@ const productController = {
       };
 
       // บันทึกลง database
-      const result = await db.insert(productData);
+      const result = await productModel.insert(productData);
 
       res.status(201).json({
         message: 'Product added successfully',
@@ -51,7 +74,7 @@ const productController = {
       });
 
     } catch (error) {
-      console.error('something error', error);
+      next(error);
     }
   },
   editProduct: async (req, res, next) => {

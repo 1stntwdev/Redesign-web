@@ -247,7 +247,7 @@ href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
     <h2>Create an account</h2>
   </div>
   
-  <form onsubmit="register(event)" action="/register" method="post" >
+  <form onsubmit="register(event)">
     <div class="modal-input">
       <label for="name">Username</label><input name="name" id="input-name" type="text" placeholder="name" required>
       <label for="email">Email</label><input name="email"id="input-email" type="text" placeholder="email" required>
@@ -269,10 +269,10 @@ href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
   <div class="modal-title">
     <h2>Login</h2>
   </div>
-   <form onsubmit="login()">
+   <form id="loginForm">
   <div class="modal-input">
-    <label for="username"></label><input name="username" type="text" placeholder="username">
-    <label for="pwd"></label><input name="password" type="password" placeholder="********" value=""  minlength="8" required /> 
+    <label for="username"></label> <input name="username" type="text" placeholder="username" required>
+    <label for="password"></label><input name="password" type="password" placeholder="********" minlength="8" required> 
     <div class="modal-rememberMe">
       <div class="modal-checkbox">
         <input type="checkbox" id="rememberMe" name="rememberMe"> <label for="rememberMe">Remember me</label>
@@ -280,7 +280,7 @@ href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
       <span>forgot password</span>
 
     </div>
-    <button type="submit" id="modal-submit" onclick="login()">Login</button>
+    <button type="submit" id="modal-submit">Login</button>
     <div class="modal-title-bottom">
       <p>Don't have an account? </p> <a href="#" id="signUp">Sign Up here</a>
     </div>
