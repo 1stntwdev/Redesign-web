@@ -436,6 +436,16 @@ button{
    .modal-input label {
     font-weight: 600 !important;
 }
+/* Error login */
+.error-text {
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+ i{
+  color: red;
+ }
+}
 /* #mobile size */
 @media only screen and (max-width:640px) {
 .menu{

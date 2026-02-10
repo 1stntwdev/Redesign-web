@@ -28,7 +28,11 @@ const authController = {
         error.message === 'USER_NOT_FOUND' ||
         error.message === 'INVALID_PASSWORD'
       ) {
-        return res.status(401).json({ success: false });
+        return res.status(401).json({
+          success: false ,
+          error: 'INVALID_CREDENTIALS',
+          message: 'Username or password is incorrect'
+          });
       }
       console.error(error);
       res.status(500).json({ success: false });

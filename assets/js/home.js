@@ -1,13 +1,12 @@
 document
   .getElementById('loginForm')
   .addEventListener('submit', login);
-
+let errrMsg = document.getElementById('loginError');
 async function login(event) {
   event.preventDefault();
   const form = event.target;
   const username = form.querySelector('input[name=username]').value;
   const password = form.querySelector('input[name=password]').value;
-  console.log('LOGIN SEND:', { username, password });
   try {
     const response = await axios.post('http://localhost:8000/login', {
       username: username,
@@ -17,7 +16,7 @@ async function login(event) {
     console.log('Response status:', response.status);
     if (response.status === 200) {
       alert('Login successful!');
-      // ปิด modal
+
       document.getElementById('myLoginModal').close();
 
       localStorage.setItem('token', response.data.token);
@@ -25,9 +24,14 @@ async function login(event) {
       window.location.replace('./Home/index.html');
     }
   } catch (error) {
-    console.log('error', error)
+    if (error.response) {
+      // show status
+      console.log(error.response)
+      const messageError = error.response.data.message;
+      errrMsg.style.display = "inline-block";
+      errrMsg.querySelector('.msg').textContent = messageError;
+    }
   }
-
 }
 function validateEmail(email) {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
