@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 
 import router from './routes/router.js';
 import { initMySQL, getConn } from './databaseConnect.js';
-import { checkUsername } from './middlewares/check.auth.js';
+// import { checkUsername } from './middlewares/check.auth.js';
 
 dotenv.config();
 
@@ -33,30 +33,30 @@ app.use('/assets', express.static(path.join(__dirname, '../../assets')));
 app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 // ---------- Auth ----------
-app.post('/register', async (req, res) => {
-    const { username, password, email } = req.body;
+// app.post('/register', async (req, res) => {
+//     const { username, password, email } = req.body;
 
-    try {
-        const isAvailable = await checkUsername(username);
-        if (!isAvailable) {
-            return res.status(409).json({
-                success: false,
-                message: 'This username already taken',
-            });
-        }
+//     try {
+//         const isAvailable = await checkUsername(username);
+//         if (!isAvailable) {
+//             return res.status(409).json({
+//                 success: false,
+//                 message: 'This username already taken',
+//             });
+//         }
 
-        const hashPassword = bcrypt.hashSync(password, 5);
-        await getConn().query(
-            'INSERT INTO user (username,password,email) VALUES (?, ?, ?)',
-            [username, hashPassword, email]
-        );
+//         const hashPassword = bcrypt.hashSync(password, 5);
+//         await getConn().query(
+//             'INSERT INTO user (username,password,email) VALUES (?, ?, ?)',
+//             [username, hashPassword, email]
+//         );
 
-        res.status(201).json({ success: true });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false });
-    }
-});
+//         res.status(201).json({ success: true });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false });
+//     }
+// });
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;

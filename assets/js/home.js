@@ -7,13 +7,13 @@ async function login(event) {
   const form = event.target;
   const username = form.querySelector('input[name=username]').value;
   const password = form.querySelector('input[name=password]').value;
- console.log('LOGIN SEND:', { username, password });
+  console.log('LOGIN SEND:', { username, password });
   try {
     const response = await axios.post('http://localhost:8000/login', {
       username: username,
       password: password
     });
-    
+
     console.log('Response status:', response.status);
     if (response.status === 200) {
       alert('Login successful!');
@@ -23,7 +23,7 @@ async function login(event) {
       localStorage.setItem('token', response.data.token);
 
       window.location.replace('./Home/index.html');
-    } 
+    }
   } catch (error) {
     console.log('error', error)
   }
@@ -76,27 +76,23 @@ async function register(event) {
         email: email,
         password: password
       });
-    const errorUser = response.data.message;
-    console.log("res =",response)
+    console.log("res =", response)
     if (response.status === 201) {
       alert('Register Success');
       event.target.reset();
       modalRegister.close();
-    } else if (response.status === 409) {
-
-      nameElent.style.color = "red";
-      nameElent.value = errorUser;
-    }
-    else if (response.status === 202) {
-      nameElent.style.color = "red";
-      nameElent.value = errorUser;
-      nameInput.classList.add("input-error");
-      setTimeout(() => {
-        nameElent.style.color = "black";
-        nameElent.value = ""
-      }, 2000);
     }
   } catch (error) {
-    console.log(`error`, error);
+    const status = error.response?.status;
+    const message = error.response?.data?.message;
+    if (status === 409) { //  error status 409/5xx axios throw to catch 
+
+      nameElent.style.color = "red";
+      nameElent.classList.add("input-error");
+      nameElent.value = message;
+    }
+    else {
+      console.log('Unexpected error:', error);
+    }
   }
 }
