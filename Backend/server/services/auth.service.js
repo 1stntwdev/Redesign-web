@@ -1,4 +1,3 @@
-import { getConn } from '../databaseConnect.js';
 import authModel from '../models/auth.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
@@ -6,18 +5,11 @@ const secret = 'lovedev'
 const authService = {
 
   checkUsername: async (username) => {
-    const conn = getConn();
-    const [rows] = await conn.query(
-      'SELECT username FROM user WHERE username = ?',
-      [username]
-    );
-
-    return rows.length === 0; // true = ว่าง
+    return await authModel.checkUsername(username);
   },
   register: async (username, password, email) => {
     const hashPassword = bcrypt.hashSync(password, 10);
     return await authModel.insertUsers(username, hashPassword, email);
-
   },
   login: async (username, password) => {
     const users = await authModel.findByUsername(username);
