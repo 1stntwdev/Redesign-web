@@ -11,7 +11,10 @@ const productController = {
 
   findproductId: async (req, res, next) => {
     try {
-      const product = await productModel.getById();
+      console.log(req);
+      const id = req.params.id;
+
+      const product = await productModel.getById(id);
       if (!product) {
         return res.status(404).json({ message: "Can't find id in database" });
       }

@@ -10,7 +10,7 @@ const productModel = {
   getById: async (id) => {
     const conn = getConn();
     const [[row]] = await conn.query(
-      'SELECT * FROM product_plant WHERE id = ?',
+      'SELECT * FROM product_plant WHERE plant_id = ?',
       [id]
     );
     return row;

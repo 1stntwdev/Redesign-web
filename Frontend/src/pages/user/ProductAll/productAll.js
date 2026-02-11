@@ -78,7 +78,7 @@ export async function loadProduct(page = currentPage,productShow = 6) {
       const row = `<div class="card-grid-container">
       <div class="card-area">
       <div class="img-card">
-        <img src="/Backend/server/uploads/${element.img}" width=50px>
+        <img src="/Backend/server/uploads/${element.img}" data-id="${element.plant_id}" width=50px>
       </div>
        <div class="name"><p>${nameDiv}</p></div>
        
@@ -136,9 +136,23 @@ export function setupPagination() {
 const productContainer = document.getElementById('product-container');
 productContainer.addEventListener('click',(e)=>{
   const btn = e.target.closest('.add-to-cart');
-  if(!btn) return;
-  const plantId = btn.dataset.id; 
-  addTocart(plantId);
+  if(btn){
+    const plantId = btn.dataset.id; 
+    addTocart(plantId);
+    return;
+  }
+  // if(!btn) return;
+
+  
+const cardImg = e.target.closest('img');
+if(!cardImg) return;
+if(cardImg){
+  const plantId = cardImg.dataset.id;
+  console.log(plantId)
+  selectProduct(plantId);
+}
+  // return;
+
 })
 let cart = [];
 function addTocart(plantId){
@@ -152,5 +166,10 @@ function addTocart(plantId){
     console.log(`add qyt`)
   }
   console.log(cart);
+}
+
+async function selectProduct(id){
+  const response = await axios.get(`http://localhost:8000/api/product_id/${id}`)
+  console.log(response);
 }
 window.loadProduct = loadProduct; 
