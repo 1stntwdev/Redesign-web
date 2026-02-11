@@ -171,5 +171,10 @@ function addTocart(plantId){
 async function selectProduct(id){
   const response = await axios.get(`http://localhost:8000/api/product_id/${id}`)
   console.log(response);
+  if(response.status === 200){
+    window.location.href = "../Product/product.html"
+  }
+  console.log(response.status);
+  
 }
 window.loadProduct = loadProduct; 
