@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product</title>
+  <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=BBH+Bogle&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
-
 </head>
 <body>
   <section id="nav-container"></section>
 </body>
 <script type="module" defer>
   import { components } from './product.js';
-
-await components.loadNav();
+ import {initLoginRegister} from '../../../assets/js/loginRegister.js'
+components.loadNav();
+ initLoginRegister();
 </script>
 </html>
