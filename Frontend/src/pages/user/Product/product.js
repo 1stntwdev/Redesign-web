@@ -1,4 +1,3 @@
-// import { initLoginRegister } from "/Frontend/src/assets/js/loginRegister.js";
 export const components = {
   loadNav: async () => {
     try {
