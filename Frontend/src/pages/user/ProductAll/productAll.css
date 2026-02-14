@@ -6,6 +6,7 @@
 
     a {
       text-decoration: none;
+      cursor: pointer;
     }
   }
 .container-area{
@@ -30,6 +31,7 @@
 .product-container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.9rem;
 }
 .card-grid-container{
   margin: 0 auto;
@@ -38,18 +40,35 @@
 .card-area{
   border: 1px solid #ddd;
   max-width: 350px;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   p{
     font-weight: 600;
   }
 }
-.description,.name{
-  width: 250px;
+.img-card {
+  height: 250px;
+  width: 100%;
+  overflow: hidden;
 }
 .img-card img{
-  height: 250px;
-  width: 250px;
-  height: auto;
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.text-area{
+   padding: 12px;
+   display: flex;
+   flex-direction: column;
+   flex: 1;
+}
+.price-row{
+  margin-top: auto;
+ 
 }
 .pagination-btn{
   margin: 2rem;
