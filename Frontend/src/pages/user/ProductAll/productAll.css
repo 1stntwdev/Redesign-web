@@ -67,8 +67,27 @@
    flex: 1;
 }
 .price-row{
+  padding-top: 0.5rem;
   margin-top: auto;
- 
+  display: inline-flex;
+  span{
+    width: 100%;
+  }
+
+  .add-to-cart{
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem;
+
+    background: #4E7C32;
+    color: #f5f5f5;
+  }
+  i{
+    color: #f5f5f5;
+  }
 }
 .pagination-btn{
   margin: 2rem;
@@ -76,6 +95,7 @@
   gap:1rem;
   justify-content: center;
 }
+
 /* =================== price-range-area =================== */
 .price-range-area{
   display: flex;

@@ -13,12 +13,19 @@
 <body>
   <section id="nav-container"></section>
   <main class="product-detail" id="product-detail">
-    <section class="img-area"><img src="https://placehold.co/600x500" alt=""></section>
+    <section class="img-area"><img id="plant-img" src="https://placehold.co/600x500" alt=""></section>
     <section class="text-area">
       <div class="top">
         <h4 class="product-title">plantname</h4>
         <span class="product-price">price xxx  THB</span>
-        <p class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni velit odio dolor odit. Placeat molestias quis repudiandae accusamus in aspernatur blanditiis, laboriosam numquam sapiente commodi dicta architecto, nemo quae ex!</p>
+        <span class="product-category">Sunlover</span>
+        <hr class="divider">
+        <h4>Description : </h4><p class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni velit odio dolor odit. Placeat molestias quis repudiandae accusamus in aspernatur blanditiis, laboriosam numquam sapiente commodi dicta architecto, nemo quae ex!</p>
+        
+        <div class="size-area">
+          <p>pot sizes : <span class="product-wide"></span></p> 
+          <p>plant height : <span class="product-high"></span></p> 
+        </div>
       </div>
       <div class="bottom">
         <div class="quantity-area">
@@ -38,9 +45,10 @@
 
 </body>
 <script type="module" defer>
-  import { components } from './product.js';
+  import { components ,searchProduct } from './product.js';
  import {initLoginRegister} from '../../../assets/js/loginRegister.js'
 components.loadNav();
  initLoginRegister();
+ searchProduct()
 </script>
 </html>

@@ -80,6 +80,7 @@ export async function loadProduct(page = currentPage,productShow = 6) {
       ${description}
       <div class="price-row"><span>${element.price} THB</span>
       <button class="add-to-cart" data-id="${element.plant_id}"> <i class="fa-solid fa-cart-plus"></i>
+      add cart
       </button>
       </div>
        </div>
