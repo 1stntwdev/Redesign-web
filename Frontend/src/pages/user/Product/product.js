@@ -42,8 +42,28 @@ function addStyleNav() {
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-async function searchProduct(id){
+const imgElement = document.getElementById("plant-img");
+const nameElement = document.querySelector(".product-title");
+const priceElement = document.querySelector(".product-price");
+const descriptionElement = document.querySelector(".product-description");
+const categoryElement = document.querySelector(".product-category");
+const wideElement = document.querySelector(".product-wide");
+const highElement = document.querySelector(".product-high");
+
+export async function searchProduct(){
   const response = await axios.get(`http://localhost:8000/api/product_id/${id}`)
   const data = response.data;
+  
+  const {
+    name ,price,amount , description ,img ,light_type_id:category,wide,high
+  }  = response.data ;
+  imgElement.src = "/Backend/server/uploads/"+img;
+  nameElement.textContent = name;
+  priceElement.textContent = price + "THB";
+  descriptionElement.textContent = description;
+  categoryElement.textContent = category;
+  wideElement.textContent = wide +`"`;
+  highElement.textContent = high+`"`;
+  
 }
   
