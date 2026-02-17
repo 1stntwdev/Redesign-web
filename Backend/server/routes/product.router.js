@@ -37,9 +37,9 @@ const productRouter = (router) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({error: 'Server error'});
-    }
-}),
-router.post('/api/upload',upload.single('photo'),productController.insertProduct);
-
+        }
+    })
+    router.post('/api/upload',upload.single('photo'),productController.insertProduct); 
+    router.post('/api/getProducts',productController.productInCart);
 }
 export default productRouter;

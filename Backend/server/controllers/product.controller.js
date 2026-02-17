@@ -8,7 +8,16 @@ const productController = {
       next(error); 
     }
   },
-
+  productInCart : async (req,res)=>{
+    try {
+      const {id} = req.body;
+      const result = await productModel.productInCart(id);
+      res.json(result);
+    } catch (error) {
+      console.error('error msg :', error);
+      res.status(500).json({ error: error.message });
+    }
+  },
   findproductId: async (req, res, next) => {
     try {
       console.log(req);
@@ -148,6 +157,7 @@ try {
           res.json({ message: 'Delete successfully' });
       } catch (error) { next(error); }
   }
+  
 }
 
 export default productController;

@@ -15,7 +15,14 @@ const productModel = {
     );
     return row;
   },
-
+  productInCart: async(id)=>{
+    const conn = getConn();
+    const [row] = await conn.query(
+      'SELECT * FROM product_plant WHERE plant_id IN (?)'
+    ,[id]
+    )
+    return row;
+  },
   pagination: async (page, limit) => {
     const conn = getConn();
     const offset = (page - 1) * limit;
