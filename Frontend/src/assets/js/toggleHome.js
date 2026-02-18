@@ -2,7 +2,7 @@ const barElemet = document.querySelector(".toggle-icon");
 const mobileMenu = document.querySelector(".mobile-menu");
 const toggleBar = document.querySelector("#toggle-bar");
 
-console.log(barElemet)
+
 barElemet.addEventListener("click",()=> {
   mobileMenu.classList.toggle('active');
 

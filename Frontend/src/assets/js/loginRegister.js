@@ -1,14 +1,17 @@
+
 export function initLoginRegister(){
 
  console.log("INIT RUNNING", Date.now());
   document.addEventListener("submit",(e)=>{
     if(e.target.id === "registerForm" || e.target.id === "btn-register-mobile")  {
-      // register(e)
+      register(e)
       e.preventDefault()
-      console.log(e)
-       console.log("inject submit");
+      // console.log(e)
+      // console.log("inject submit");
     }
     if(e.target.id === "loginForm"|| e.target.id === "btn-login-mobile"){
+      e.preventDefault()
+      // console.log("login submit");
       login(e)
     }
   })
@@ -35,6 +38,8 @@ let errrMsg = document.getElementById('loginError');
       localStorage.setItem('token', response.data.token);
 
       window.location.replace('/Frontend/src/pages/user/Home/index.html');
+  //  loadLoginNav();
+     
     }
   } catch (error) {
     if (error.response) {
@@ -113,3 +118,15 @@ function checkPasswordmatch(pwd, confirmPwd, displaypwdInvalid) {
     }
   }
 }
+
+
+// export async function loadLoginNav() {
+//   try {
+//     const response = await axios.get('/Frontend/src/Components/LoginNav/loginNav.html');
+//     document.getElementById('nav-container').innerHTML = response.data;
+   
+    
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }

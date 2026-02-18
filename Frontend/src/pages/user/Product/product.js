@@ -49,21 +49,27 @@ const descriptionElement = document.querySelector(".product-description");
 const categoryElement = document.querySelector(".product-category");
 const wideElement = document.querySelector(".product-wide");
 const highElement = document.querySelector(".product-high");
+const amountElement = document.querySelector(".product-amount");
 
-export async function searchProduct(){
-  const response = await axios.get(`http://localhost:8000/api/product_id/${id}`)
-  const data = response.data;
-  
-  const {
-    name ,price,amount , description ,img ,light_type_id:category,wide,high
-  }  = response.data ;
-  imgElement.src = "/Backend/server/uploads/"+img;
-  nameElement.textContent = name;
-  priceElement.textContent = price + "THB";
-  descriptionElement.textContent = description;
-  categoryElement.textContent = category;
-  wideElement.textContent = wide +`"`;
-  highElement.textContent = high+`"`;
-  
+export async function searchProduct() {
+  try {
+    const response = await axios.get(`http://localhost:8000/api/product_id/${id}`)
+    const data = response.data;
+
+    const {
+      name, price, amount, description, img, light_type_id: category, wide, high
+    } = response.data;
+    imgElement.src = "/Backend/server/uploads/" + img;
+    nameElement.textContent = name;
+    priceElement.textContent = price + "THB";
+    descriptionElement.textContent = description;
+    categoryElement.textContent = category;
+    wideElement.textContent = wide + `"`;
+    highElement.textContent = high + `"`;
+    amountElement.textContent = amount + ` remaining`;
+  } catch (error) {
+      console.log(`error`+error)
+  }
+
 }
   

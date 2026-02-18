@@ -63,17 +63,20 @@
 </div>
   </section>
 </section>
-  
+
 </body>
 
 
 <script type="module">
-import { loadNav,loadProduct ,setupPagination,selectShow} from "./productAll.js";
-loadNav();
-loadProduct();
-setupPagination();
-const viewList = document.getElementById("viewList");
+  import {initLoginRegister} from '/Frontend/src/assets/js/loginRegister.js';
+  import { loadNav,loadProduct ,setupPagination,selectShow,setStyle} from "./productAll.js";
+  
+  loadNav();
+  loadProduct();
+  setupPagination();
+  initLoginRegister();
+  const viewList = document.getElementById("viewList");
 
-selectShow();
+  selectShow();
 </script>
 </html>

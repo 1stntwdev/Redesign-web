@@ -1,8 +1,9 @@
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 export async function loadNav() {
   try {
     const response = await axios.get('/Frontend/src/Components/Nav/nav.html');
-
     document.getElementById('nav-container').innerHTML = response.data;
+    const cartNumber = document.querySelector(".cart-number");
     const toggleScript = document.createElement('script');
     toggleScript.src = "/Frontend/src/assets/js/toggleHome.js";
     document.body.appendChild(toggleScript);
@@ -10,6 +11,10 @@ export async function loadNav() {
     const modalScript = document.createElement('script');
     modalScript.src = "/Frontend/src/assets/js/modalLogin.js";
     document.body.appendChild(modalScript);
+    if(cart.length > 0){
+      cartNumber.style.display = "flex";
+      cartNumber.textContent = cart.length;
+    }
   } catch (error) {
     console.log(error)
   }
@@ -129,28 +134,29 @@ export function setupPagination() {
     loadProduct(currentPage);
   });
 }
+export function setStyle(length){
+  const cartNumber = document.querySelector(".cart-number");
+  if(!cartNumber) return;
+  cartNumber.style.display = "flex";
+  cartNumber.textContent = length;
+}
 
 const productContainer = document.getElementById('product-container');
 productContainer.addEventListener('click',(e)=>{
   const btn = e.target.closest('.add-to-cart');
-  if(btn){
-    const plantId = btn.dataset.id; 
-    addTocart(plantId);
-    return;
-  }
-
+  if(!btn)return;
+  console.log("clicked id:", btn.dataset.id);
+    addTocart(btn.dataset.id)
+ 
 })
-let cart = [];
+
+
 function addTocart(plantId){
-  console.log(`add`,plantId);
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (!cart.includes(plantId)) {
-    cart.push(plantId);
-  }else{
-    // ถ้ามีสินค้า ให้เพิ่มจำนวนแทน data id ของจำนวน  
-    console.log(`add qyt`)
-  }
-  console.log(cart);
+  cart.push(plantId);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  console.log("cart:", cart);;
+  setStyle(cart.length)
 }
 
 window.loadProduct = loadProduct; 

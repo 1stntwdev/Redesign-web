@@ -17,7 +17,7 @@ body {
   font-family: Arial, sans-serif;
 }
 /* #region NAVBAR & MENU */
-nav{
+/* nav{
   border-bottom: 1px solid #0000000d;
   display: flex;
   justify-content: space-between;
@@ -124,7 +124,7 @@ nav{
   li{
     width: 100%;
   }
-}
+} */
 /* #endregion */
 
 /* ---- SEARCH AREA START ---- */
@@ -448,7 +448,7 @@ button{
 }
 /* #mobile size */
 @media only screen and (max-width:640px) {
-.menu{
+/* .menu{
   display: none;
 }
 .toggle-icon{
@@ -480,7 +480,7 @@ button{
 }
 .menu-submit a:hover{
   color: #00642d;
-}
+} */
 /* END NAV */
 
 

@@ -25,6 +25,7 @@
         <div class="size-area">
           <p>pot sizes : <span class="product-wide"></span></p> 
           <p>plant height : <span class="product-high"></span></p> 
+          <p>amount : <span class="product-amount"></span></p> 
         </div>
       </div>
       <div class="bottom">
@@ -44,11 +45,13 @@
 
 
 </body>
-<script type="module" defer>
+<script type="module">
   import { components ,searchProduct } from './product.js';
- import {initLoginRegister} from '../../../assets/js/loginRegister.js'
-components.loadNav();
- initLoginRegister();
- searchProduct()
+  import {initLoginRegister} from '/Frontend/src/assets/js/loginRegister.js';
+  components.loadNav();
+  searchProduct()
+  initLoginRegister();
+  
+ 
 </script>
 </html>
