@@ -204,8 +204,39 @@ href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
   import {loadNav } from '/Frontend/src/Components/Nav/nav.js';
   import {initLoginRegister} from '/Frontend/src/assets/js/loginRegister.js';
 
-   loadNav();
-   initLoginRegister();
+  //  loadNav();
+   
+
+const checkToken = localStorage.getItem("token");
+console.log(checkToken)
+if (checkToken == null){
+  loadNav();
+  initLoginRegister();
+}else{
+ async function loadLoginNav() {
+  try {
+    const response = await axios.get('/Frontend/src/Components/LoginNav/loginNav.html');
+    document.getElementById('nav-container').innerHTML = response.data;
+
+    // 👇 bind event หลัง inject เสร็จ
+    const btnLogout = document.querySelectorAll("#btn-logout");
+    
+    btnLogout.forEach((btn)=>{
+      btn.addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.reload();
+      });
+    });
+    const toggleScript = document.createElement('script');
+    toggleScript.src = "/Frontend/src/assets/js/toggleHome.js";
+    document.body.appendChild(toggleScript);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+loadLoginNav();
+}
 
 
 </script>

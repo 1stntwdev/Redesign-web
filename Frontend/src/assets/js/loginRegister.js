@@ -36,8 +36,8 @@ let errrMsg = document.getElementById('loginError');
       document.getElementById('myLoginModal').close();
 
       localStorage.setItem('token', response.data.token);
-
-      window.location.replace('/Frontend/src/pages/user/Home/index.html');
+      window.location.reload();
+      // window.location.replace('/Frontend/src/pages/user/Home/index.html');
   //  loadLoginNav();
      
     }
