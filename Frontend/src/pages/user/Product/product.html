@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=BBH+Bogle&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
+<link rel="stylesheet" href="/Frontend/src/Components/Nav/nav.css">
 <!--product.css -->
 <link rel="stylesheet" href="./product.css">
 </head>
@@ -46,11 +47,11 @@
 
 </body>
 <script type="module">
-  import { components ,searchProduct } from './product.js';
-  import {initLoginRegister} from '/Frontend/src/assets/js/loginRegister.js';
-  components.loadNav();
+  import { searchProduct } from './product.js';
+  import {initAuthNav} from '/Frontend/src/assets/js/authNav.js'
+  initAuthNav();
   searchProduct()
-  initLoginRegister();
+
   
  
 </script>

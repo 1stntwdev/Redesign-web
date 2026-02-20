@@ -68,13 +68,11 @@
 
 
 <script type="module">
-  import {initLoginRegister} from '/Frontend/src/assets/js/loginRegister.js';
-  import { loadNav,loadProduct ,setupPagination,selectShow,setStyle} from "./productAll.js";
-  
-  loadNav();
+  import { loadProduct ,setupPagination,selectShow,setStyle} from "./productAll.js";
+  import {initAuthNav} from '/Frontend/src/assets/js/authNav.js'
+  initAuthNav();
   loadProduct();
   setupPagination();
-  initLoginRegister();
   const viewList = document.getElementById("viewList");
 
   selectShow();
