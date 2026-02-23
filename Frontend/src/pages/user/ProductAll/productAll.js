@@ -84,7 +84,7 @@ export async function loadProduct(page = currentPage,productShow = 6) {
       <div class="name"><p>${nameDiv}</p></div>
       ${description}
       <div class="price-row"><span>${element.price} THB</span>
-      <button class="add-to-cart" data-id="${element.plant_id}"> <i class="fa-solid fa-cart-plus"></i>
+      <button class="add-to-cart" data-id="${element.plant_id}" data-amount="${element.amount}"> <i class="fa-solid fa-cart-plus"></i>
       add cart
       </button>
       </div>
@@ -134,29 +134,17 @@ export function setupPagination() {
     loadProduct(currentPage);
   });
 }
-export function setStyle(length){
-  const cartNumber = document.querySelector(".cart-number");
-  if(!cartNumber) return;
-  cartNumber.style.display = "flex";
-  cartNumber.textContent = length;
-}
+
+import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
 
 const productContainer = document.getElementById('product-container');
 productContainer.addEventListener('click',(e)=>{
   const btn = e.target.closest('.add-to-cart');
   if(!btn)return;
   console.log("clicked id:", btn.dataset.id);
-    addTocart(btn.dataset.id)
+    componentCart.addTocart(btn.dataset.id,btn.dataset.amount)
  
 })
 
-
-function addTocart(plantId){
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(plantId);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  console.log("cart:", cart);;
-  setStyle(cart.length)
-}
 
 window.loadProduct = loadProduct; 

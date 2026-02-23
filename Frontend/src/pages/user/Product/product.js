@@ -1,17 +1,3 @@
-export const components = {
-  loadNav: async () => {
-    try {
-      const navElement = document.getElementById("nav-container");
-      const response = await axios.get("/Frontend/src/Components/Nav/nav.html");
-      navElement.innerHTML = response.data;
-      addToggleNav()
-      addStyleNav();
-      
-    } catch (error) {
-      console.error(`somethinh erro loadNav`, error)
-    }
-  }
-}
 const addToggleNav = () => {
   const js = [
     "/Frontend/src/assets/js/modalLogin.js",
@@ -24,18 +10,6 @@ const addToggleNav = () => {
     script.defer = true;
     document.body.appendChild(script);
   });
-}
-function addStyleNav() {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "/Frontend/src/Components/Nav/nav.css";
-
-  const linkModal = document.createElement("link");
-  linkModal.rel = "stylesheet";
-  linkModal.href = "/Frontend/src/assets/css/myLoginModal.css";
-
-  document.head.appendChild(link);
-  document.head.appendChild(linkModal);
 }
 
 
@@ -72,4 +46,13 @@ export async function searchProduct() {
   }
 
 }
-  
+
+const textArea = document.querySelector('.text-area')
+textArea.addEventListener('click',(e)=>{
+  const btn = e.target.closest('.add-cart');
+  if(!btn) return;
+  console.log(`id=`+id)
+    componentCart.addTocart(id);
+})
+
+import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
