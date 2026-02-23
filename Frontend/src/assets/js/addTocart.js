@@ -1,7 +1,6 @@
 export const componentCart = {
   addTocart: (id, stock) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  console.log(`cart = ${cart}`)
   // check id in array
   const index = cart.findIndex(item => item.id === id);
   // Not found product in cart
