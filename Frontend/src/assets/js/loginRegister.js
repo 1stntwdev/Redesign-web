@@ -36,10 +36,7 @@ let errrMsg = document.getElementById('loginError');
       document.getElementById('myLoginModal').close();
 
       localStorage.setItem('token', response.data.token);
-      window.location.reload();
-      // window.location.replace('/Frontend/src/pages/user/Home/index.html');
-  //  loadLoginNav();
-     
+      window.location.reload();     
     }
   } catch (error) {
     if (error.response) {
@@ -120,13 +117,3 @@ function checkPasswordmatch(pwd, confirmPwd, displaypwdInvalid) {
 }
 
 
-// export async function loadLoginNav() {
-//   try {
-//     const response = await axios.get('/Frontend/src/Components/LoginNav/loginNav.html');
-//     document.getElementById('nav-container').innerHTML = response.data;
-   
-    
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
