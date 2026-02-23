@@ -24,14 +24,14 @@ const categoryElement = document.querySelector(".product-category");
 const wideElement = document.querySelector(".product-wide");
 const highElement = document.querySelector(".product-high");
 const amountElement = document.querySelector(".product-amount");
-
+const btn = document.createElement('button');
 const qtyArea = document.querySelector('.quantity-area');
 const textArea = document.querySelector('.text-area')
 export async function searchProduct() {
   try {
     const response = await axios.get(`http://localhost:8000/api/product_id/${id}`)
     const data = response.data;
-    const btn = document.createElement(button);
+    
     btn.className = 'btn add-cart';
     btn.textContent = 'Add to cart';
     const {
@@ -46,8 +46,6 @@ export async function searchProduct() {
     highElement.textContent = high + `"`;
     amountElement.textContent = amount + ` remaining`;
     qtyArea.appendChild(btn);
-    btn.dataset.id = plant_id;
-    btn.dataset.stock = amount;
   } catch (error) {
       console.log(`error`+error)
   }
@@ -59,7 +57,7 @@ textArea.addEventListener('click',(e)=>{
   const btn = e.target.closest('.add-cart');
   if(!btn) return;
   console.log(`id=`+id)
-    componentCart.addTocart(id,stock);
+    componentCart.addTocart(id,btn.dataset.stock);
 })
 
 import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
