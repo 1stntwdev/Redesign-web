@@ -15,10 +15,7 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 export async function loadNav() {
   try {
     const response = await axios.get('/Frontend/src/Components/Nav/nav.html');
-    const styleNav = document.createElement("link");
-    styleNav.rel = "stylesheet"
-    styleNav.href = "/Frontend/src/Components/Nav/nav.css";
-    document.head.appendChild(styleNav);
+   
     document.getElementById('nav-container').innerHTML = response.data;
     const cartNumber = document.querySelector(".cart-number");
     const toggleScript = document.createElement('script');
