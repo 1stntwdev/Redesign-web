@@ -1,9 +1,157 @@
-*{
-  padding: 0;
+/* Reset */
+* {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
-html {
-  overflow-y: scroll;
-  scrollbar-gutter: stable;
+
+body {
+  background: #f8f9fa;
+  color: #222;
+ 
+}
+
+/* Header */
+header {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+h4 {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Layout */
+.cart-area {
+   padding: 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+/* Cart List */
+.list-item {
+  height: 80vh;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.item img {
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.text {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: #555;
+}
+
+.text span {
+  color: #111;
+  font-weight: 500;
+}
+
+/* Quantity Box */
+.quantity-box {
+  display: inline-flex;
+}
+
+.qty-btn {
+  background: #222;
+  text-align: center;
+  color: #ddd;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+     width: 50px;
+  line-height: 30px; 
+  text-align: center;
+}
+
+.qty-btn:hover {
+  background: #616161;
+}
+
+.qty-number {
+  padding: 0.5rem 0.8rem;
+  width: 50px;
+  text-align: center;
+  border: none;
+  outline: none;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+/* Order Summary */
+.order-area {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  height: fit-content;
+}
+
+.order-area div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.Total {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111;
+  border-top: 1px solid #eee;
+  padding-top: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* Button */
+.btn-checkout {
+  padding: 0.8rem;
+  margin-top: 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background: #111;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.btn-checkout:hover {
+  opacity: 0.85;
+}
+
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cart-area {
+    grid-template-columns: 1fr;
+  }
 }

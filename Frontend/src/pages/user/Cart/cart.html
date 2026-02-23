@@ -8,11 +8,33 @@
   <link rel="stylesheet" href="/Frontend/src/Components/Nav/nav.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
-  <script src="./cart.js"></script>
+  <script src="./cart.js" defer></script>
   <link rel="stylesheet" href="./cart.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script> <!-- axios cdn for web -->
+
 </head>
 <body>
-<section id="nav-container"></section>  
+<section id="nav-container"></section>
+<header>cart -> Shipping -> Payment</header>
+<h4>My cart (?)</h4>
+<section class="cart-area">
+  <aside class="list-item">
+   
+   
+
+  </aside>
+  <section class="order-area">
+    <h4>Order Summary</h4>
+    <br>
+    <h4>Sub Total</h4>
+    <div class="shipping"><p>Shipping: <span>30 THB</span></p></div>   
+    <div class="Subtotal"><p>Subtotal: <span>Total THB</span></p></div>   
+    <div class="Subtotal"><p>Tax: <span>20 THB(7%)</span></p></div>   
+    <div class="Total"><p>Total <span>1000</span></p></div>   
+    <button class="btn-checkout">Process To Checkout</button>
+  </section>
+</section>
+
 </body>
 <script type="module">
 import {initAuthNav} from '/Frontend/src/assets/js/authNav.js'
