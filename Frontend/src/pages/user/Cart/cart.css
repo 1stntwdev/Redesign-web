@@ -34,7 +34,7 @@ h4 {
 
 /* Cart List */
 .list-item {
-  height: 80vh;
+  height: auto;
   background: #fff;
   padding: 1.5rem;
   border-radius: 8px;
@@ -45,6 +45,7 @@ h4 {
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .item img {
@@ -84,7 +85,12 @@ h4 {
   line-height: 30px; 
   text-align: center;
 }
-
+.qty-btn.minus{
+  border-radius: 6px 0 0 6px;
+}
+.qty-btn.plus{
+  border-radius: 0 6px 6px 0;
+}
 .qty-btn:hover {
   background: #616161;
 }
