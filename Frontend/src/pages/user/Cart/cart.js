@@ -2,36 +2,38 @@ const cartArea = document.querySelector('.cart-area');
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const ids = cart.map(item => Number(item.id)) // convert {id} to API req
-console.log(ids);
-
-cartArea.addEventListener('click', (e) => {
-  if (e.target.classList.contains('plus')) {
-    const productItem = e.target.closest('.item');
-    const maxStock = Number(productItem.dataset.amount)
-
-    const qty = productItem.querySelector('.qty-number');
-    if(qty.value >= maxStock){
-      alert('สินค้าไม่พอ')
-    }else{
-      qty.value = Number(qty.value) + 1;
-    }
-
+// console.log(ids);
+cartArea.addEventListener('click',(e)=>{
+  const productItem = e.target.closest('.item');
+  if(!productItem) return;
+  const id = productItem.dataset.id;
+  const maxStock = productItem.dataset.amount;
+  const qtyLabel = productItem.querySelector('.qty-number');
+  
+  if(e.target.classList.contains('plus')){
+     let currentQty = Number(qtyLabel.value);
+   if(currentQty >= maxStock) {
+    alert('สินค้าไม่พอ');
+    return;
+   }
+   currentQty++
+   qtyLabel.value = currentQty;
+   updateQty(id, currentQty); 
+  
   }
-  if (e.target.classList.contains('minus')) {
-    const productItem = e.target.closest('.item');
-    const qty = productItem.querySelector('.qty-number');
-    qty.value = Number(qty.value) - 1;
-    console.log(typeof (qty.value))
-    if (Number(qty.value) <= 1) {
-      qty.value = 1;
+  if(e.target.classList.contains('minus')){
+    let currentQty = Number(qtyLabel.value);
+    if(currentQty > 1){
+      currentQty--;
+      qtyLabel.value = currentQty;
+      updateQty(id, currentQty); 
+      
     }
   }
+    
+
 })
 // call dom
-const img = document.querySelector('.item-img');
-const name = document.querySelector('.item-name');
-const category = document.querySelector('.item-category');
-const price = document.querySelector('.item-price');
 const listItem = document.querySelector('.list-item');
 
 // get id in cart
@@ -40,7 +42,6 @@ const displayItem = async (ids) => {
     // fill id to API
     const response = await axios.post('http://localhost:8000/api/getProducts', { id: ids })
     const data = response.data;
-    console.log(data)
 
     // loop api
     data.forEach(element => {
@@ -48,11 +49,10 @@ const displayItem = async (ids) => {
       // value cart = [{id:'15',qty:1}[]
     item => Number(item.id) === element.plant_id
   );
-  console.log('found',foundItem)
  const qtyValue = foundItem.qty ? foundItem.qty : 1;
 
       const row =
-        `<div class="item" data-amount="${element.amount}">
+        `<div class="item" data-id="${element.plant_id}" data-amount="${element.amount}">
           <img src="/Backend/server/uploads/${element.img}" alt="" width="150" height="150" >
           <div class="product-info">
             <div class="name"><p>name: <span>${element.name}</span></p></div>
@@ -65,13 +65,24 @@ const displayItem = async (ids) => {
             <button class="qty-btn plus">+</button> 
         </div>
       </div>`
-    console.log(`qty`+foundItem)
       listItem.innerHTML += row;
     });
   } catch (error) {
     console.log(`some thing error`, error)
   }
 }
-
+import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
+const updateQty = (id, newQty) => {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  // check id in array
+  const index = cart.findIndex(item => item.id === id);
+  // Not found product in cart
+  if (index !== -1) {
+   cart[index].qty = newQty;
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  componentCart.setStyle();
+ 
+}
 
 displayItem(ids)
