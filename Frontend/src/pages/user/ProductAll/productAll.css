@@ -75,6 +75,7 @@
   }
 
   .add-to-cart{
+    cursor: pointer;
     width: 100%;
     border: none;
     outline: none;
