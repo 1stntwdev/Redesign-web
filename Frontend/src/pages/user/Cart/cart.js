@@ -1,8 +1,9 @@
+import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
+
 const cartArea = document.querySelector('.cart-area');
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 const ids = cart.map(item => Number(item.id)) // convert {id} to API req
-// console.log(ids);
+
 cartArea.addEventListener('click',(e)=>{
   const productItem = e.target.closest('.item');
   if(!productItem) return;
@@ -27,51 +28,47 @@ cartArea.addEventListener('click',(e)=>{
       currentQty--;
       qtyLabel.value = currentQty;
       updateQty(id, currentQty); 
-      
     }
   }
-    
-
 })
 // call dom
 const listItem = document.querySelector('.list-item');
-
 // get id in cart
 const displayItem = async (ids) => {
   try {
     // fill id to API
     const response = await axios.post('http://localhost:8000/api/getProducts', { id: ids })
     const data = response.data;
-
+    
     // loop api
     data.forEach(element => {
     const foundItem = cart.find(
-      // value cart = [{id:'15',qty:1}[]
+    // value cart = [{id:'15',qty:1}[]
     item => Number(item.id) === element.plant_id
   );
  const qtyValue = foundItem.qty ? foundItem.qty : 1;
 
-      const row =
+ const row =
         `<div class="item" data-id="${element.plant_id}" data-amount="${element.amount}">
-          <img src="/Backend/server/uploads/${element.img}" alt="" width="150" height="150" >
-          <div class="product-info">
-            <div class="name"><p>name: <span>${element.name}</span></p></div>
-            <div class="cat"><p>category: <span>${element.category}</span></p></div>
-            <div class="price"><p>price: <span>${element.price} THB</span></p></div>
-          </div>
-          <div class="quantity-box">
-            <button class="qty-btn minus">-</button>
-            <input type="number" class="qty-number"  value="${qtyValue}" min=1 max=5>
-            <button class="qty-btn plus">+</button> 
-        </div>
-      </div>`
+            <img src="/Backend/server/uploads/${element.img}" alt="" width="150" height="150" >
+            <div class="product-info">
+              <div class="name"><p>name: <span>${element.name}</span></p></div>
+              <div class="cat"><p>category: <span>${element.category}</span></p></div>
+              <div class="price"><p>price: <span>${element.price} THB</span></p></div>
+            </div>
+            <div class="quantity-box">
+              <button class="qty-btn minus">-</button>
+              <input type="number" class="qty-number"  value="${qtyValue}" min=1 max=5>
+              <button class="qty-btn plus">+</button> 
+            </div>
+          </div>`
       listItem.innerHTML += row;
     });
+    
   } catch (error) {
     console.log(`some thing error`, error)
   }
 }
-import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
 const updateQty = (id, newQty) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   // check id in array
@@ -82,7 +79,6 @@ const updateQty = (id, newQty) => {
   }
   localStorage.setItem("cart", JSON.stringify(cart));
   componentCart.setStyle();
- 
 }
 
 displayItem(ids)
