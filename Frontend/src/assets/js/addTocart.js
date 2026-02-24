@@ -1,3 +1,4 @@
+
 export const componentCart = {
   addTocart: (id, stock) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -27,11 +28,19 @@ export const componentCart = {
   componentCart.setStyle(cart.length);
   console.log(cart)
 },
-setStyle: (length)=>{
+setStyle: ()=>{
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  console.log("setStyle โหลด")
    const cartNumber = document.querySelector(".cart-number");
   if(!cartNumber) return;
   cartNumber.style.display = "flex";
-  cartNumber.textContent = length;
+  const totalQty = cart.reduce((sum, item) => {
+    return sum + item.qty;
+  }, 0);
+  cartNumber.textContent = totalQty;
+
+console.log(totalQty);
 }
 }
 
