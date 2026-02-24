@@ -23,7 +23,17 @@ h4 {
   font-weight: 500;
   margin-bottom: 1rem;
 }
-
+/* delete All */
+.delCartall{
+   display: none;
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  
+}
 /* Layout */
 .cart-area {
    padding: 2rem;

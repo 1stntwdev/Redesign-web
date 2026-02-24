@@ -31,14 +31,32 @@ cartArea.addEventListener('click',(e)=>{
     }
   }
 })
+
+
 // call dom
 const listItem = document.querySelector('.list-item');
 // get id in cart
+
+ const delBtnall = document.createElement("button");
+    delBtnall.innerText = "Delete All";
+    delBtnall.classList.add("delCartall");
+    listItem.appendChild(delBtnall);
+ 
+    listItem.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delCartall')) {
+     localStorage.removeItem("cart");
+     componentCart.setStyle();
+     window.location.reload();
+    }
+});
 const displayItem = async (ids) => {
   try {
+   
+
     // fill id to API
     const response = await axios.post('http://localhost:8000/api/getProducts', { id: ids })
     const data = response.data;
+    delBtnall.style.display = "block";
     
     // loop api
     data.forEach(element => {
@@ -64,11 +82,13 @@ const displayItem = async (ids) => {
           </div>`
       listItem.innerHTML += row;
     });
-    
+   
   } catch (error) {
     console.log(`some thing error`, error)
   }
+  
 }
+
 const updateQty = (id, newQty) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   // check id in array
