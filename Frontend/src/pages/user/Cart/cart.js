@@ -1,7 +1,7 @@
 import {componentCart} from '/Frontend/src/assets/js/addTocart.js';
 
 const cartArea = document.querySelector('.cart-area');
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 const ids = cart.map(item => Number(item.id)) // convert {id} to API req
 
 cartArea.addEventListener('click',(e)=>{
@@ -36,7 +36,15 @@ cartArea.addEventListener('click',(e)=>{
 // call dom
 const listItem = document.querySelector('.list-item');
 // get id in cart
-
+listItem.addEventListener('click',(e)=>{
+  if(e.target.classList.contains('del-item')){
+      const id = e.target.dataset.id;
+      cart = cart.filter(item=>item.id!==id);
+      localStorage.setItem("cart",JSON.stringify(cart));
+      window.location.reload();
+  }
+  
+})
  const delBtnall = document.createElement("button");
     delBtnall.innerText = "Delete All";
     delBtnall.classList.add("delCartall");
@@ -55,9 +63,12 @@ const displayItem = async (ids) => {
 
     // fill id to API
     const response = await axios.post('http://localhost:8000/api/getProducts', { id: ids })
-    const data = response.data;
-    delBtnall.style.display = "block";
     
+    const data = response.data;
+    
+    if(data.length >= 1){
+      delBtnall.style.display = "block";
+    }
     // loop api
     data.forEach(element => {
     const foundItem = cart.find(
@@ -71,24 +82,25 @@ const displayItem = async (ids) => {
             <img src="/Backend/server/uploads/${element.img}" alt="" width="150" height="150" >
             <div class="product-info">
               <div class="name"><p>name: <span>${element.name}</span></p></div>
-              <div class="cat"><p>category: <span>${element.category}</span></p></div>
+              <div class="cat"><p>category: <span>${element.light_type_id}</span></p></div>
               <div class="price"><p>price: <span>${element.price} THB</span></p></div>
             </div>
             <div class="quantity-box">
               <button class="qty-btn minus">-</button>
               <input type="number" class="qty-number"  value="${qtyValue}" min=1 max=5>
               <button class="qty-btn plus">+</button> 
-            </div>
+              </div>
+              <a class="del-item" data-id="${element.plant_id}">Del</a>
           </div>`
       listItem.innerHTML += row;
     });
+    
    
   } catch (error) {
     console.log(`some thing error`, error)
   }
   
 }
-
 const updateQty = (id, newQty) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   // check id in array
