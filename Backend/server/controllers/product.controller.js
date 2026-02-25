@@ -11,6 +11,9 @@ const productController = {
   productInCart : async (req,res)=>{
     try {
       const {id} = req.body;
+      if(id.length === 0){
+        return res.status(200).json([]);
+      }
       const result = await productModel.productInCart(id);
       res.json(result);
     } catch (error) {
