@@ -20,6 +20,7 @@ cartArea.addEventListener('click', (e) => {
     currentQty++
     qtyLabel.value = currentQty;
     updateQty(id, currentQty);
+    orderSummary();
 
   }
   if (e.target.classList.contains('minus')) {
@@ -28,6 +29,8 @@ cartArea.addEventListener('click', (e) => {
       currentQty--;
       qtyLabel.value = currentQty;
       updateQty(id, currentQty);
+      orderSummary();
+
     }
   }
 })
@@ -133,3 +136,41 @@ const updateQty = (id, newQty) => {
 }
 
 displayItem(ids)
+
+
+// ดึงข้อมูล ราคา จำนวน 
+// คำนวณ
+// แทนค่า
+
+function getCart(){
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
+const totalNum = document.querySelector('.subTotal-number');
+const totalPayment = document.querySelector('.total-payment');
+const vat = document.querySelector('.vat-number');
+let shipping = 200;
+
+const orderSummary = async () =>{
+  let localcart = getCart();
+ 
+ 
+    const response = await axios.post('http://localhost:8000/api/getProducts', { id: ids })
+    const data = response.data;
+    
+    
+    let total = 0;
+    data.forEach(product =>{
+      const foundItem  = localcart.find(
+        item => Number(item.id) === product.plant_id
+      )
+      if(foundItem){
+        total += product.price * foundItem.qty
+      }
+    })
+    vat.textContent = Math.round((total*0.07)) + " THB";
+   totalNum.textContent = total +" THB";
+   totalPayment.textContent = (total*0.07) + shipping + total +' THB';
+  
+  console.log(total);
+  }
+orderSummary();
