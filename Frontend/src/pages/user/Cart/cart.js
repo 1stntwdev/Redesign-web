@@ -114,7 +114,7 @@ const displayItem = async (ids) => {
               <input type="number" class="qty-number"  value="${qtyValue}" min=1 max=5>
               <button class="qty-btn plus">+</button> 
               </div>
-              <a class="del-item" data-id="${element.plant_id}"><span>Del</span></a>
+              <a class="del-item" data-id="${element.plant_id}"><img src="/Frontend/src/assets/icons/delete.png" alt="" width="32" height="32" ></a>
           </div>`
       listItem.innerHTML += row;
     });

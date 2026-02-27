@@ -37,6 +37,9 @@ export const componentCart = {
       return sum + item.qty;
     }, 0);
     cartNumber.textContent = totalQty;
+    if (cart.length === 0){
+      cartNumber.style.display = "none";
+    }
   },
 
   // Feat for product.html
