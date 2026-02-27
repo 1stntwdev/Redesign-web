@@ -32,8 +32,12 @@ h4 {
   padding: 0.5rem;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
-  
 }
+ .delCartall:hover{
+  border-bottom: 1px solid #000;
+  transition: 0.2s ease;
+  background: #f8f8f8
+ } 
 /* Layout */
 .cart-area {
    padding: 2rem;
@@ -153,11 +157,14 @@ h4 {
   font-size: 0.9rem;
   cursor: pointer;
   transition: 0.2s ease;
+  cursor: pointer;
 }
 .btn-checkout:hover {
   opacity: 0.85;
 }
-
+.del-item{
+  cursor: pointer;
+}
 
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
