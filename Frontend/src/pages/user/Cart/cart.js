@@ -1,7 +1,8 @@
 import { componentCart } from '/Frontend/src/assets/js/addTocart.js';
 
 const cartArea = document.querySelector('.cart-area');
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let cart = getCart();
 const ids = cart.map(item => Number(item.id)) // convert {id} to API req
 
 cartArea.addEventListener('click', (e) => {
@@ -68,13 +69,39 @@ function removeAll() {
   renderCart();
   
 }
+
+const orderArea = document.querySelector('.order-area');
+function checkEmptyCart(){
+ let cart = getCart();
+  const cartContainer = document.querySelector('.cart-area');
+  if (cart.length === 0) {
+    //Change Style
+    orderArea.style.display = "none";
+    cartContainer.style.gridTemplateColumns = "1fr";
+    const createImg = document.createElement("img");
+    createImg.src = "/Frontend/src/assets/img/empty-cart.png";
+    createImg.style.width = "150px";
+    createImg.style.height = "150px";
+    listItem.innerHTML = `
+    <div style="
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+"> 
+    <img src="/Frontend/src/assets/img/empty-cart.png" width="250" height="250">
+    <p>Your cart is Empty</p>
+    </div>
+    `;
+
+    return;
+  }
+}
 function renderCart() {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   listItem.innerHTML = "";
-  if (cart.length === 0) {
-    listItem.innerHTML = "<p>Cart is Empty</p>";
-    return;
-  }
+  checkEmptyCart();
   const array = []
   cart.forEach(element => {
     array.push(element.id)
@@ -83,7 +110,7 @@ function renderCart() {
   displayItem(id);
 }
 const displayItem = async (ids) => {
-  
+  checkEmptyCart();
   try {
     const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
     // fill id to API
