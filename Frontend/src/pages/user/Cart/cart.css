@@ -171,6 +171,38 @@ h4 {
   -webkit-appearance: none;
   margin: 0;
     }
+/* dialog check Auth */
+    .check-token-area{
+    margin: auto auto;
+    max-width: 400px;
+    width: 100%;
+    height: 220px;
+    border: none; 
+    border-radius: 12px; 
+    padding: 20px;
+}
+.check-token-area p{
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+.check-token-area button{
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+.check-token-area button:nth-child(2):hover{
+  background: #dcdcdc;
+}
+.check-token-area button:nth-child(1):hover{
+  background: #222;
+}
+.check-token-area button:nth-child(1){
+  background: #111;
+  color: #fff;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
