@@ -193,8 +193,8 @@ h4 {
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
-.check-token-area button:nth-child(2):hover{
-  background: #dcdcdc;
+.check-token-area button:nth-child(2){
+  background: transparent;
 }
 .check-token-area button:nth-child(1):hover{
   background: #222;
