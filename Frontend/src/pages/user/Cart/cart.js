@@ -1,4 +1,30 @@
 import { componentCart } from '/Frontend/src/assets/js/addTocart.js';
+const btnCheckout = document.querySelector('.btn-checkout');
+btnCheckout.addEventListener('click',checkAuth)
+function checkAuth() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    const dialogElement = document.getElementById("checkToken");
+    dialogElement.showModal();
+    // close btn
+    document.getElementById("closeDialog").onclick = () => dialogElement.close();
+    dialogElement.addEventListener('click',(e)=>{
+      if(e.target === dialogElement) 
+      dialogElement.close();
+    })
+    // href login
+    document.getElementById("goLogin").onclick = () => {
+      dialogElement.close();
+      modalLogin.showModal();
+    };
+    return false; 
+  }
+
+  
+  // ไปหน้า checkout ส่งข้อมูลเข้า order db
+  return true;
+}
 
 const cartArea = document.querySelector('.cart-area');
 
